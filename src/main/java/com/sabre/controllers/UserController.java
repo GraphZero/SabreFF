@@ -23,8 +23,16 @@ public class UserController {
 
     @RequestMapping( path = "/addUser", method = RequestMethod.POST)
     public ResponseEntity<String> addUser(@RequestBody() final UserEntity userEntity){
+        userService.addUser(userEntity);
         HttpHeaders responseHeaders = new HttpHeaders();
         return new ResponseEntity<>( "OK!", responseHeaders, HttpStatus.CREATED);
+    }
+
+    @RequestMapping( path = "/deleteUser", method = RequestMethod.DELETE)
+    public ResponseEntity<String> deleteUser(@RequestBody() final long userId){
+        userService.deleteUser(userId);
+        HttpHeaders responseHeaders = new HttpHeaders();
+        return new ResponseEntity<>( "User deleted", responseHeaders, HttpStatus.ACCEPTED);
     }
 
 }

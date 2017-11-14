@@ -8,6 +8,6 @@ import com.sabre.domain.UserEntity;
 public interface UserDatabaseRepository {
     void addUser(UserEntity userEntity);
     void deleteUser(long userId);
-    long getMilesByUserId( long userId);
-    void addMiles(long miles, long userId);
+    double getMilesByUserId( long userId);
+    double addMiles(double miles, long userId);
 }
