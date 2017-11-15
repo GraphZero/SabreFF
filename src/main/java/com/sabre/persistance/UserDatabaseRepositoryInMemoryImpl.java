@@ -21,17 +21,18 @@ public class UserDatabaseRepositoryInMemoryImpl implements UserDatabaseRepositor
     }
 
     @Override
-    public void addMiles(long miles, long userId ) {
+    public double addMiles(double miles, long userId ) {
 
         for ( UserEntity x : users ){
             if ( x.getUserId() == userId ){
                 x.setMiles( x.getMiles() + miles);
             }
         }
+        return miles;
     }
 
     @Override
-    public long getMilesByUserId(long userId) {
+    public double getMilesByUserId(long userId) {
         for ( UserEntity x : users ){
             if ( x.getUserId() == userId ) return x.getMiles();
         }

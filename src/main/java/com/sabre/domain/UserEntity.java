@@ -7,14 +7,14 @@ public class UserEntity {
     private String firstName;
     private String lastName;
     private String email;
-    private long miles;
+    private double miles;
     private long userId;
 
     public UserEntity() {
 
     }
 
-    public UserEntity(String firstName, String lastName, String email, long miles, long userId) {
+    public UserEntity(String firstName, String lastName, String email, double miles, long userId) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -46,11 +46,11 @@ public class UserEntity {
         this.email = email;
     }
 
-    public long getMiles() {
+    public double getMiles() {
         return miles;
     }
 
-    public void setMiles(long miles) {
+    public void setMiles(double miles) {
         this.miles = miles;
     }
 
