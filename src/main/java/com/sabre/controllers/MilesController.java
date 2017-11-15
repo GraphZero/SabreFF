@@ -34,18 +34,18 @@ public class MilesController {
     }
 
     @RequestMapping( path = "/addMiles", method = RequestMethod.POST)
-    public ResponseEntity<String> addMilesForUser(@RequestParam("userId") final long userID, @RequestParam("miles") long miles ){
-        userService.addMiles(miles, userID);
+    public ResponseEntity<String> addMilesForUser(@RequestParam("userId") final String userEmail, @RequestParam("miles") long miles ){
+        userService.addMiles(miles, userEmail);
         HttpHeaders responseHeaders = new HttpHeaders();
         return new ResponseEntity<>( "Done!", responseHeaders, HttpStatus.OK);
     }
 
     @RequestMapping( path = "/postMilesBetweenCities", method = RequestMethod.POST)
-    public ResponseEntity<Double> getDistanceFromTwoCities(@RequestParam("userId") final long userID,
+    public ResponseEntity<Double> getDistanceFromTwoCities(@RequestParam("userId") final String userEmail,
                                                            @RequestParam("codeOne") final String codeOne,
                                                            @RequestParam("codeTwo") final String codeTwo){
         HttpHeaders responseHeaders = new HttpHeaders();
-        return new ResponseEntity<>( userService.addMilesByCities(userID, codeOne, codeTwo), responseHeaders, HttpStatus.OK);
+        return new ResponseEntity<>( userService.addMilesByCities(userEmail, codeOne, codeTwo), responseHeaders, HttpStatus.OK);
     }
 
 }

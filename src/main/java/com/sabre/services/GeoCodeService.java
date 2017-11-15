@@ -1,7 +1,6 @@
 package com.sabre.services;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.util.TypeKey;
 import javafx.util.Pair;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -16,7 +15,6 @@ import java.io.*;
 import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.stream.Stream;
 
 /**
  * Created by Andrzej on 2017-11-09.
