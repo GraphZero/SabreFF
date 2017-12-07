@@ -21,16 +21,16 @@ public class MilesController {
         this.userService = userService;
     }
 
-    @RequestMapping( path = "/getMiles/{userId}", method = RequestMethod.GET)
-    public ResponseEntity<Double> returnCurrentMiles(@PathVariable("userId") final long userID ){
+    @RequestMapping( path = "/getMiles/{userEmail}", method = RequestMethod.GET)
+    public ResponseEntity<Double> returnCurrentMiles(@PathVariable("userId") final String userEmail ){
         HttpHeaders responseHeaders = new HttpHeaders();
-        return new ResponseEntity<>( userService.getMilesByUserId(userID), responseHeaders, HttpStatus.OK);
+        return new ResponseEntity<>( userService.getMilesByUserId(userEmail), responseHeaders, HttpStatus.OK);
     }
 
-    @RequestMapping( path = "/getMissingMiles/{userId}", method = RequestMethod.GET)
-    public ResponseEntity<Double> getMissingMiles(@PathVariable("userId") final long userId){
+    @RequestMapping( path = "/getMissingMiles/{userEmail}", method = RequestMethod.GET)
+    public ResponseEntity<Double> getMissingMiles(@PathVariable("userId") final String userEmail){
         HttpHeaders responseHeaders = new HttpHeaders();
-        return new ResponseEntity<>( userService.getMissingMiles(userId), responseHeaders, HttpStatus.OK);
+        return new ResponseEntity<>( userService.getMissingMiles(userEmail), responseHeaders, HttpStatus.OK);
     }
 
     @RequestMapping( path = "/addMiles", method = RequestMethod.POST)

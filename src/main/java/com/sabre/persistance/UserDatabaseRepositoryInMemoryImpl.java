@@ -32,9 +32,9 @@ public class UserDatabaseRepositoryInMemoryImpl implements UserDatabaseRepositor
     }
 
     @Override
-    public double getMilesByUserId(long userId) {
+    public double getMilesByUserEmail(String userEmail) {
         for ( UserEntity x : users ){
-            if ( x.getUserId() == userId ) return x.getMiles();
+            if ( x.getEmail() == userEmail ) return x.getMiles();
         }
         return -1;
     }

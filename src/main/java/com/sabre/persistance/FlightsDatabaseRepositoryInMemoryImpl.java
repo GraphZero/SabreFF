@@ -5,6 +5,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by Andrzej on 2017-11-15.
@@ -25,5 +26,12 @@ public class FlightsDatabaseRepositoryInMemoryImpl implements FlightsDatabaseRep
     @Override
     public List<FlightEntity> getAllFlights() {
         return flights;
+    }
+
+    @Override
+    public List<FlightEntity> getFlightsByUserEmail( String email ) {
+        return flights.stream()
+                .filter( x -> x.getUserEmail().trim().equals(email) )
+                .collect(Collectors.toList());
     }
 }

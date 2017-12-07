@@ -13,6 +13,6 @@ public interface UserDatabaseRepository {
     boolean isUserInDatabase(String email);
     List<UserEntity> getAllUsers();
     UserEntity getUserByEmail(String email);
-    double getMilesByUserId( long userId);
+    double getMilesByUserEmail( String userEmail);
     double addMiles(double miles, String userEmail);
 }

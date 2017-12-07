@@ -6,6 +6,7 @@ import java.util.Calendar;
  * Created by Andrzej on 2017-11-15.
  */
 public class FlightEntity {
+    private long flightId;
     private String userEmail;
     private String airportDepartureCode;
     private String airportArrivalCode;
@@ -17,6 +18,14 @@ public class FlightEntity {
     private Calendar returnFlightlDate;
 
     public FlightEntity() {
+    }
+
+    public FlightEntity( long id, String userEmail, long miles, String airportDepartureCode, String airportArrivalCode ) {
+        this.flightId = id;
+        this.userEmail = userEmail;
+        this.miles = miles;
+        this.airportDepartureCode = airportDepartureCode;
+        this.airportArrivalCode = airportArrivalCode;
     }
 
     public FlightEntity(String userEmail, String airportDepartureCode, String airportArrivalCode, String airlineCode,
@@ -103,6 +112,14 @@ public class FlightEntity {
 
     public void setReturnFlightlDate(Calendar returnFlightlDate) {
         this.returnFlightlDate = returnFlightlDate;
+    }
+
+    public long getFlightId() {
+        return flightId;
+    }
+
+    public void setFlightId(long flightId) {
+        this.flightId = flightId;
     }
 
     @Override

@@ -26,8 +26,8 @@ public class UserService {
         milesToLvlUp = 10000;
     }
 
-    public double getMilesByUserId(final long userId) {
-        return userDatabaseRepository.getMilesByUserId(userId);
+    public double getMilesByUserId(final String userEmail) {
+        return userDatabaseRepository.getMilesByUserEmail(userEmail);
     }
 
     public double addMilesByCities(final String userEmail, final String cityId1, final String cityId2) {
@@ -42,8 +42,8 @@ public class UserService {
         userDatabaseRepository.addMiles(miles, userEmail);
     }
 
-    public double getMissingMiles(final long userId) {
-        return milesToLvlUp - userDatabaseRepository.getMilesByUserId(userId);
+    public double getMissingMiles(final String userEmail) {
+        return milesToLvlUp - userDatabaseRepository.getMilesByUserEmail(userEmail);
     }
 
     public void deleteUser(final long userId) {

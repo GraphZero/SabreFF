@@ -5,6 +5,7 @@ import com.sabre.persistance.FlightsDatabaseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -14,6 +15,7 @@ import java.util.List;
 @Service
 public class FlightsService {
     FlightsDatabaseRepository flightsDatabaseRepository;
+
 
     @Autowired
     public FlightsService(FlightsDatabaseRepository flightsDatabaseRepository) {
@@ -26,6 +28,10 @@ public class FlightsService {
 
     public List<FlightEntity> getAllFlights(){
         return flightsDatabaseRepository.getAllFlights();
+    }
+
+    public List<FlightEntity> getFlightsByUserEmail(String email){
+        return flightsDatabaseRepository.getFlightsByUserEmail(email);
     }
 
 }

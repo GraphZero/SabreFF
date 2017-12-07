@@ -10,4 +10,5 @@ import java.util.List;
 public interface FlightsDatabaseRepository {
     void addFlight(FlightEntity flightEntity);
     List<FlightEntity> getAllFlights();
+    List<FlightEntity> getFlightsByUserEmail(String email);
 }
