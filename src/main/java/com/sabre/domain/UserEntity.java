@@ -11,7 +11,6 @@ public class UserEntity {
     private long userId;
 
     public UserEntity() {
-
     }
 
     public UserEntity(String firstName, String lastName, String email, double miles, long userId) {

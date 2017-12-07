@@ -3,6 +3,7 @@ package com.sabre.persistance;
 import com.sabre.domain.UserEntity;
 import org.springframework.stereotype.Repository;
 
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,14 +18,13 @@ public class UserDatabaseRepositoryInMemoryImpl implements UserDatabaseRepositor
 
     public UserDatabaseRepositoryInMemoryImpl() {
         users = new ArrayList<>();
-        users.add( new UserEntity ( "Andrew", "Ad", "a@b", 10, 1 ) );
     }
 
     @Override
-    public double addMiles(double miles, long userId ) {
+    public double addMiles(double miles, String userEmail  ) {
 
         for ( UserEntity x : users ){
-            if ( x.getUserId() == userId ){
+            if ( x.getEmail() == userEmail ){
                 x.setMiles( x.getMiles() + miles);
             }
         }
@@ -32,9 +32,9 @@ public class UserDatabaseRepositoryInMemoryImpl implements UserDatabaseRepositor
     }
 
     @Override
-    public double getMilesByUserId(long userId) {
+    public double getMilesByUserEmail(String userEmail) {
         for ( UserEntity x : users ){
-            if ( x.getUserId() == userId ) return x.getMiles();
+            if ( x.getEmail() == userEmail ) return x.getMiles();
         }
         return -1;
     }
@@ -47,5 +47,27 @@ public class UserDatabaseRepositoryInMemoryImpl implements UserDatabaseRepositor
     @Override
     public void deleteUser(long userId) {
         users.remove(userId);
+    }
+
+    @Override
+    public boolean isUserInDatabase(String email) {
+        for ( UserEntity u : users ){
+            if ( u.getEmail().equals(email) ) return true;
+        }
+        return false;
+    }
+
+    @Override
+    public List<UserEntity> getAllUsers() {
+        return users;
+    }
+
+    @Nullable
+    @Override
+    public UserEntity getUserByEmail(String email) {
+        for ( UserEntity u : users ){
+            if ( u.getEmail().equals(email) ) return u;
+        }
+        return null;
     }
 }
