@@ -36,7 +36,6 @@ public class GeoCodeService {
         } catch (IOException e) {
             logger.error("Couldnt get content");
         }
-        System.out.println(result.get("Results").toString());
         return new Pair<>(parseResponseAndFindLatitude(result.get("Results").toString()),
                 parseResponseAndFindLongitude(result.get("Results").toString()));
     }

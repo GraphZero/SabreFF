@@ -1,10 +1,12 @@
 package com.sabre.services;
 
+import com.sabre.domain.FlightClass;
 import com.sabre.domain.FlightEntity;
 import com.sabre.persistance.FlightsDatabaseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -13,27 +15,40 @@ import java.util.List;
 
 @Service
 public class FlightsService {
-    FlightsDatabaseRepository flightsDatabaseRepository;
-    CalculateDistancesService calculateDistancesService;
+    private FlightsDatabaseRepository flightsDatabaseRepository;
+    private CalculateDistancesBetweenAirportsService calculateDistancesBetweenAirportsService;
 
     @Autowired
-    public FlightsService(FlightsDatabaseRepository flightsDatabaseRepository, CalculateDistancesService calculateDistancesService) {
+    public FlightsService(FlightsDatabaseRepository flightsDatabaseRepository,
+                          CalculateDistancesBetweenAirportsService calculateDistancesBetweenAirportsService) {
         this.flightsDatabaseRepository = flightsDatabaseRepository;
-        this.calculateDistancesService = calculateDistancesService;
+        this.calculateDistancesBetweenAirportsService = calculateDistancesBetweenAirportsService;
     }
 
-    public void addFlight(FlightEntity flightEntity){
-        /*if ( flightEntity.getMiles() == 1 ){
-            flightEntity.setMiles( calculateDistancesService.calculateDistance(flightEntity.getAirportDepartureCode(), flightEntity.getAirportArrivalCode()) );
-        }*/
+    /**
+     * Persists fly that doesn't need calculating its distance
+     */
+    public void persistFlight(FlightEntity flightEntity) {
         flightsDatabaseRepository.persistFlight(flightEntity);
     }
 
-    public List<FlightEntity> getAllFlights(){
+    /**
+     * Persists fly that needs calculating its distance
+     */
+
+    public void persistFlight(String userEmail, String airportDepartureCode, String airportArrivalCode,
+                              String airlineCode, FlightClass flightClass, boolean returnTicket,
+                              Calendar departureFlightDate, Calendar returnFlightlDate) {
+        flightsDatabaseRepository.persistFlight(new FlightEntity(userEmail, airportDepartureCode, airportArrivalCode,
+                airlineCode, calculateDistancesBetweenAirportsService.calculateDistance(airportDepartureCode,
+                airportArrivalCode), flightClass, returnTicket, departureFlightDate, returnFlightlDate));
+    }
+
+    public List<FlightEntity> getAllFlights() {
         return flightsDatabaseRepository.getAllFlights();
     }
 
-    public List<FlightEntity> getFlightsByUserEmail(String email){
+    public List<FlightEntity> getFlightsByUserEmail(String email) {
         return flightsDatabaseRepository.getFlightsByUserEmail(email);
     }
 

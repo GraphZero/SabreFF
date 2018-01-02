@@ -11,7 +11,7 @@ import java.io.IOException;
  */
 
 @Service
-public class CalculateDistancesService {
+public class CalculateDistancesBetweenAirportsService {
     private GeoCodeService geoCodeService;
     private Pair<Double, Double> city1;
     private Pair<Double, Double> city2;
@@ -19,7 +19,7 @@ public class CalculateDistancesService {
 
 
     @Autowired
-    public CalculateDistancesService(GeoCodeService geoCodeService) {
+    public CalculateDistancesBetweenAirportsService(GeoCodeService geoCodeService) {
         this.geoCodeService = geoCodeService;
     }
 

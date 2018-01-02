@@ -2,9 +2,6 @@ package com.sabre.domain;
 
 import java.util.Calendar;
 
-/**
- * Created by Andrzej on 2017-11-15.
- */
 public class FlightEntity {
     private long flightId;
     private String userEmail;
@@ -29,7 +26,7 @@ public class FlightEntity {
     }
 
     public FlightEntity(String userEmail, String airportDepartureCode, String airportArrivalCode, String airlineCode,
-                        long miles, FlightClass flightClass, boolean returnTicket, Calendar departureFlightDate,
+                        double miles, FlightClass flightClass, boolean returnTicket, Calendar departureFlightDate,
                         Calendar returnFlightlDate) {
         this.userEmail = userEmail;
         this.airportDepartureCode = airportDepartureCode;

@@ -12,10 +12,6 @@ import org.springframework.web.bind.annotation.*;
 import java.io.IOException;
 import java.util.List;
 
-/**
- * Created by Andrzej on 2017-11-09.
- */
-
 @RestController
 public class UserController {
     UserService userService;

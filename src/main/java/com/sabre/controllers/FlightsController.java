@@ -1,7 +1,7 @@
 package com.sabre.controllers;
 
+import com.sabre.domain.FlightClass;
 import com.sabre.domain.FlightEntity;
-import com.sabre.domain.UserEntity;
 import com.sabre.services.FlightsService;
 import com.sabre.services.ParseDataFromCsvFileAndInsertToDatabaseService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,13 +11,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
-import java.util.HashMap;
+import java.util.Calendar;
 import java.util.List;
-import java.util.Map;
 
-/**
- * Created by Andrzej on 2017-11-15.
- */
 @RestController
 public class FlightsController {
     FlightsService flightsService;
@@ -31,7 +27,7 @@ public class FlightsController {
         parse();
     }
 
-    private void parse(){
+    private void parse() {
         try {
             parseDataFromCsvFileAndInsertToDatabaseService.readDataFromCsvFile();
         } catch (IOException e) {
@@ -39,24 +35,38 @@ public class FlightsController {
         }
     }
 
-    @RequestMapping( path = "/getFlightsByUserEmail/{email:.+}", method = RequestMethod.GET)
-    public ResponseEntity<List<FlightEntity>> getFlightsByUserEmail(@PathVariable final String email){
+    @RequestMapping(path = "/getFlightsByUserEmail/{email:.+}", method = RequestMethod.GET)
+    public ResponseEntity<List<FlightEntity>> getFlightsByUserEmail(@PathVariable final String email) {
         HttpHeaders responseHeaders = new HttpHeaders();
-        return new ResponseEntity<>( flightsService.getFlightsByUserEmail(email) , responseHeaders, HttpStatus.OK);
+        return new ResponseEntity<>(flightsService.getFlightsByUserEmail(email), responseHeaders, HttpStatus.OK);
     }
 
-    @RequestMapping( path = "/getAllFlights", method = RequestMethod.GET)
-    public ResponseEntity<List<FlightEntity>> getAllFlights(){
+    @RequestMapping(path = "/getAllFlights", method = RequestMethod.GET)
+    public ResponseEntity<List<FlightEntity>> getAllFlights() {
         HttpHeaders responseHeaders = new HttpHeaders();
-        return new ResponseEntity<>( flightsService.getAllFlights() , responseHeaders, HttpStatus.OK);
+        return new ResponseEntity<>(flightsService.getAllFlights(), responseHeaders, HttpStatus.OK);
     }
 
-    @RequestMapping( path = "/postFlight", method = RequestMethod.POST)
-    public ResponseEntity<String> postFlight(@RequestBody final FlightEntity flightEntity ){
-        System.out.println(flightEntity);
-        flightsService.addFlight(flightEntity);
+    @RequestMapping(path = "/postFlight", method = RequestMethod.POST)
+    public ResponseEntity<String> postFlight(@RequestBody final FlightEntity flightEntity) {
+        flightsService.persistFlight(flightEntity);
         HttpHeaders responseHeaders = new HttpHeaders();
-        return new ResponseEntity<>( "Successfully added flight!", responseHeaders, HttpStatus.OK);
+        return new ResponseEntity<>("Successfully added flight!", responseHeaders, HttpStatus.OK);
+    }
+
+    @RequestMapping(path = "/postIncompleteFlight", method = RequestMethod.POST)
+    public ResponseEntity<String> postIncompleteFlight(@RequestParam("userEmail") final String userEmail,
+                                                       @RequestParam("airportDepartureCode") final String airportDepartureCode,
+                                                       @RequestParam("airportArrivalCode") final String airportArrivalCode,
+                                                       @RequestParam("airlineCode") final String airlineCode,
+                                                       @RequestParam("flightClass") final FlightClass flightClass,
+                                                       @RequestParam("returnTicket") final boolean returnTicket,
+                                                       @RequestParam("departureFlightDate") final Calendar departureFlightDate,
+                                                       @RequestParam("returnFlightlDate") final Calendar returnFlightlDate) {
+        flightsService.persistFlight(userEmail, airportDepartureCode, airportArrivalCode, airlineCode, flightClass,
+                returnTicket, departureFlightDate, returnFlightlDate);
+        HttpHeaders responseHeaders = new HttpHeaders();
+        return new ResponseEntity<>("Successfully added flight!", responseHeaders, HttpStatus.OK);
     }
 
 }

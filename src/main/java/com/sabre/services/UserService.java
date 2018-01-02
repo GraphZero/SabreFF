@@ -15,12 +15,12 @@ import java.util.List;
 @Service
 public class UserService {
     UserDatabaseRepository userDatabaseRepository;
-    CalculateDistancesService calculateDistancesService;
+    CalculateDistancesBetweenAirportsService calculateDistancesBetweenAirportsService;
     long milesToLvlUp;
 
     @Autowired
-    public UserService(UserDatabaseRepository userDatabaseRepository, CalculateDistancesService calculateDistancesService) {
-        this.calculateDistancesService = calculateDistancesService;
+    public UserService(UserDatabaseRepository userDatabaseRepository, CalculateDistancesBetweenAirportsService calculateDistancesBetweenAirportsService) {
+        this.calculateDistancesBetweenAirportsService = calculateDistancesBetweenAirportsService;
         this.userDatabaseRepository = userDatabaseRepository;
         milesToLvlUp = 10000;
     }
@@ -32,7 +32,7 @@ public class UserService {
     public double addMilesByCities(final String userEmail, final String cityId1, final String cityId2) {
         return userDatabaseRepository
                 .addMiles(
-                        calculateDistancesService.calculateDistance(cityId1, cityId2),
+                        calculateDistancesBetweenAirportsService.calculateDistance(cityId1, cityId2),
                         userEmail
                 );
     }
