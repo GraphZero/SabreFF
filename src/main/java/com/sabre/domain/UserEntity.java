@@ -1,8 +1,5 @@
 package com.sabre.domain;
 
-/**
- * Created by Andrzej on 2017-10-31.
- */
 public class UserEntity {
     private String firstName;
     private String lastName;
@@ -11,7 +8,6 @@ public class UserEntity {
     private long userId;
 
     public UserEntity() {
-
     }
 
     public UserEntity(String firstName, String lastName, String email, double miles, long userId) {
