@@ -1,7 +1,7 @@
 package com.sabre.services;
 
 import com.sabre.domain.FlightClass;
-import com.sabre.domain.FlightEntity;
+import com.sabre.domain.Flight;
 import com.sabre.persistance.FlightsDatabaseRepository;
 import com.sabre.persistance.FlightsDatabaseRepositoryInMemoryImpl;
 import org.junit.Test;
@@ -54,7 +54,7 @@ public class FlightsServiceTest {
     @Test
     public void shouldPersistFinishedFlight() {
         long dbSize = flightsDatabaseRepository.getAllFlights().size();
-        flightsService.persistFlight( new FlightEntity("A", "B", "C", "D",
+        flightsService.persistFlight( new Flight("A", "B", "C", "D",
                 500.0, FlightClass.ECONOMY, true, null, null ) );
         assertEquals( dbSize + 1, flightsDatabaseRepository.getAllFlights().size() );
     }

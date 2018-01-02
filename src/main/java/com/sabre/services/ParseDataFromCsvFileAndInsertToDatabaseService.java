@@ -1,7 +1,7 @@
 package com.sabre.services;
 
-import com.sabre.domain.FlightEntity;
-import com.sabre.domain.UserEntity;
+import com.sabre.domain.Flight;
+import com.sabre.domain.User;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVRecord;
 import org.apache.logging.log4j.LogManager;
@@ -50,17 +50,14 @@ public class ParseDataFromCsvFileAndInsertToDatabaseService {
     }
 
     private void persistUsersToDatabase(Iterable<CSVRecord> records) {
-        int userId = 0;
         int flightId = 0;
         for (CSVRecord record : records) {
             if ( !userService.isUserInDatabase(record.get("email")) ) {
-                userService.addUser(new UserEntity(record.get("firstName"), record.get("secondName"),
-                        record.get("email"), Double.parseDouble(record.get("miles")),
-                        userId ));
-                logger.info("Persisting user number " + userId);
-                userId++;
+                userService.addUser(new User(record.get("firstName"), record.get("secondName"),
+                        record.get("email"), Double.parseDouble(record.get("miles"))));
+                logger.info("Persisting user " );
             } else{
-                UserEntity user = userService.getUserByEmail(record.get("email"));
+                User user = userService.getUserByEmail(record.get("email"));
                 user.setMiles( user.getMiles() + Double.parseDouble(record.get("miles") ));
             }
             persistFlightToDatabase(flightId, record);
@@ -70,7 +67,7 @@ public class ParseDataFromCsvFileAndInsertToDatabaseService {
     }
 
     private void persistFlightToDatabase(long id, CSVRecord record) {
-        flightsService.persistFlight( new FlightEntity( id,
+        flightsService.persistFlight( new Flight( id,
                 record.get("email"),
                 Long.parseLong(record.get("miles").trim())
                 , record.get("airportDepartureCode")

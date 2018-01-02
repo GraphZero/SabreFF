@@ -1,7 +1,7 @@
 package com.sabre.controllers;
 
 import com.sabre.domain.FlightClass;
-import com.sabre.domain.FlightEntity;
+import com.sabre.domain.Flight;
 import com.sabre.services.FlightsService;
 import com.sabre.services.ParseDataFromCsvFileAndInsertToDatabaseService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,21 +35,21 @@ public class FlightsController {
         }
     }
 
-    @RequestMapping(path = "/getFlightsByUserEmail/{email:.+}", method = RequestMethod.GET)
-    public ResponseEntity<List<FlightEntity>> getFlightsByUserEmail(@PathVariable final String email) {
+    @RequestMapping(path = "/getFlightsByUserEmail/{email}", method = RequestMethod.GET)
+    public ResponseEntity<List<Flight>> getFlightsByUserEmail(@PathVariable final String email) {
         HttpHeaders responseHeaders = new HttpHeaders();
         return new ResponseEntity<>(flightsService.getFlightsByUserEmail(email), responseHeaders, HttpStatus.OK);
     }
 
     @RequestMapping(path = "/getAllFlights", method = RequestMethod.GET)
-    public ResponseEntity<List<FlightEntity>> getAllFlights() {
+    public ResponseEntity<List<Flight>> getAllFlights() {
         HttpHeaders responseHeaders = new HttpHeaders();
         return new ResponseEntity<>(flightsService.getAllFlights(), responseHeaders, HttpStatus.OK);
     }
 
     @RequestMapping(path = "/postFlight", method = RequestMethod.POST)
-    public ResponseEntity<String> postFlight(@RequestBody final FlightEntity flightEntity) {
-        flightsService.persistFlight(flightEntity);
+    public ResponseEntity<String> postFlight(@RequestBody final Flight flight) {
+        flightsService.persistFlight(flight);
         HttpHeaders responseHeaders = new HttpHeaders();
         return new ResponseEntity<>("Successfully added flight!", responseHeaders, HttpStatus.OK);
     }

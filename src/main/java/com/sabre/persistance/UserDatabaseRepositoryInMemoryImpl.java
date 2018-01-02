@@ -1,6 +1,6 @@
 package com.sabre.persistance;
 
-import com.sabre.domain.UserEntity;
+import com.sabre.domain.User;
 import org.springframework.stereotype.Repository;
 
 import javax.annotation.Nullable;
@@ -14,7 +14,7 @@ import java.util.List;
 
 @Repository
 public class UserDatabaseRepositoryInMemoryImpl implements UserDatabaseRepository {
-    List<UserEntity> users;
+    List<User> users;
 
     public UserDatabaseRepositoryInMemoryImpl() {
         users = new ArrayList<>();
@@ -22,7 +22,7 @@ public class UserDatabaseRepositoryInMemoryImpl implements UserDatabaseRepositor
 
     @Override
     public double addMiles(double miles, String userEmail  ) {
-        for ( UserEntity x : users ){
+        for ( User x : users ){
             if ( x.getEmail() == userEmail ){
                 x.setMiles( x.getMiles() + miles);
             }
@@ -31,40 +31,40 @@ public class UserDatabaseRepositoryInMemoryImpl implements UserDatabaseRepositor
     }
 
     @Override
-    public double getMilesByUserEmail(String userEmail) {
-        for ( UserEntity x : users ){
+    public double findMilesByEmail(String userEmail) {
+        for ( User x : users ){
             if ( x.getEmail() == userEmail ) return x.getMiles();
         }
         return -1;
     }
 
     @Override
-    public void persistUser(UserEntity userEntity) {
-        users.add(userEntity);
+    public void save(User user) {
+        users.add(user);
     }
 
     @Override
-    public void deleteUser(long userId) {
+    public void delete(long userId) {
         users.remove(userId);
     }
 
     @Override
-    public boolean isUserInDatabase(String email) {
-        for ( UserEntity u : users ){
+    public boolean existsByEmail(String email) {
+        for ( User u : users ){
             if ( u.getEmail().equals(email) ) return true;
         }
         return false;
     }
 
     @Override
-    public List<UserEntity> getAllUsers() {
+    public List<User> findAll() {
         return users;
     }
 
     @Nullable
     @Override
-    public UserEntity getUserByEmail(String email) {
-        for ( UserEntity u : users ){
+    public User findByEmail(String email) {
+        for ( User u : users ){
             if ( u.getEmail().equals(email) ) return u;
         }
         return null;

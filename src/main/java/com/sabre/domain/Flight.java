@@ -2,7 +2,7 @@ package com.sabre.domain;
 
 import java.util.Calendar;
 
-public class FlightEntity {
+public class Flight {
     private long flightId;
     private String userEmail;
     private String airportDepartureCode;
@@ -14,10 +14,10 @@ public class FlightEntity {
     private Calendar departureFlightDate;
     private Calendar returnFlightlDate;
 
-    public FlightEntity() {
+    public Flight() {
     }
 
-    public FlightEntity( long id, String userEmail, long miles, String airportDepartureCode, String airportArrivalCode ) {
+    public Flight(long id, String userEmail, long miles, String airportDepartureCode, String airportArrivalCode ) {
         this.flightId = id;
         this.userEmail = userEmail;
         this.miles = miles;
@@ -25,9 +25,9 @@ public class FlightEntity {
         this.airportArrivalCode = airportArrivalCode;
     }
 
-    public FlightEntity(String userEmail, String airportDepartureCode, String airportArrivalCode, String airlineCode,
-                        double miles, FlightClass flightClass, boolean returnTicket, Calendar departureFlightDate,
-                        Calendar returnFlightlDate) {
+    public Flight(String userEmail, String airportDepartureCode, String airportArrivalCode, String airlineCode,
+                  double miles, FlightClass flightClass, boolean returnTicket, Calendar departureFlightDate,
+                  Calendar returnFlightlDate) {
         this.userEmail = userEmail;
         this.airportDepartureCode = airportDepartureCode;
         this.airportArrivalCode = airportArrivalCode;
@@ -121,7 +121,7 @@ public class FlightEntity {
 
     @Override
     public String toString() {
-        return "FlightEntity{" +
+        return "Flight{" +
                 "userEmail='" + userEmail + '\'' +
                 ", airportDepartureCode='" + airportDepartureCode + '\'' +
                 ", airportArrivalCode='" + airportArrivalCode + '\'' +
