@@ -2,7 +2,6 @@ package com.sabre.services;
 
 import com.sabre.domain.UserEntity;
 import com.sabre.persistance.UserDatabaseRepository;
-import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -51,7 +50,7 @@ public class UserService {
     }
 
     public void addUser(final UserEntity userEntity) {
-        userDatabaseRepository.addUser(userEntity);
+        userDatabaseRepository.persistUser(userEntity);
     }
 
     public boolean isUserInDatabase(final String email){

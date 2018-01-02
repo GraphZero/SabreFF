@@ -5,7 +5,6 @@ import com.sabre.persistance.FlightsDatabaseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
 import java.util.List;
 
 /**
@@ -15,15 +14,19 @@ import java.util.List;
 @Service
 public class FlightsService {
     FlightsDatabaseRepository flightsDatabaseRepository;
-
+    CalculateDistancesService calculateDistancesService;
 
     @Autowired
-    public FlightsService(FlightsDatabaseRepository flightsDatabaseRepository) {
+    public FlightsService(FlightsDatabaseRepository flightsDatabaseRepository, CalculateDistancesService calculateDistancesService) {
         this.flightsDatabaseRepository = flightsDatabaseRepository;
+        this.calculateDistancesService = calculateDistancesService;
     }
 
     public void addFlight(FlightEntity flightEntity){
-        flightsDatabaseRepository.addFlight(flightEntity);
+        /*if ( flightEntity.getMiles() == 1 ){
+            flightEntity.setMiles( calculateDistancesService.calculateDistance(flightEntity.getAirportDepartureCode(), flightEntity.getAirportArrivalCode()) );
+        }*/
+        flightsDatabaseRepository.persistFlight(flightEntity);
     }
 
     public List<FlightEntity> getAllFlights(){

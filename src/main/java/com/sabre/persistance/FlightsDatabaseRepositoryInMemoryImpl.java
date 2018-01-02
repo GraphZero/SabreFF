@@ -19,7 +19,7 @@ public class FlightsDatabaseRepositoryInMemoryImpl implements FlightsDatabaseRep
     }
 
     @Override
-    public void addFlight(FlightEntity flightEntity) {
+    public void persistFlight(FlightEntity flightEntity) {
         flights.add(flightEntity);
     }
 

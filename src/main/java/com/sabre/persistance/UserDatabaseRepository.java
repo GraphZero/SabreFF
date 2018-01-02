@@ -8,7 +8,7 @@ import java.util.List;
  * Created by Andrzej on 2017-10-31.
  */
 public interface UserDatabaseRepository {
-    void addUser(UserEntity userEntity);
+    void persistUser(UserEntity userEntity);
     void deleteUser(long userId);
     boolean isUserInDatabase(String email);
     List<UserEntity> getAllUsers();

@@ -22,7 +22,6 @@ public class UserDatabaseRepositoryInMemoryImpl implements UserDatabaseRepositor
 
     @Override
     public double addMiles(double miles, String userEmail  ) {
-
         for ( UserEntity x : users ){
             if ( x.getEmail() == userEmail ){
                 x.setMiles( x.getMiles() + miles);
@@ -40,7 +39,7 @@ public class UserDatabaseRepositoryInMemoryImpl implements UserDatabaseRepositor
     }
 
     @Override
-    public void addUser(UserEntity userEntity) {
+    public void persistUser(UserEntity userEntity) {
         users.add(userEntity);
     }
 

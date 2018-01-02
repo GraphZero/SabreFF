@@ -11,7 +11,7 @@ public class FlightEntity {
     private String airportDepartureCode;
     private String airportArrivalCode;
     private String airlineCode;
-    private long miles;
+    private double miles;
     private FlightClass flightClass;
     private boolean returnTicket;
     private Calendar departureFlightDate;
@@ -74,11 +74,11 @@ public class FlightEntity {
         this.airlineCode = airlineCode;
     }
 
-    public long getMiles() {
+    public double getMiles() {
         return miles;
     }
 
-    public void setMiles(long miles) {
+    public void setMiles(double miles) {
         this.miles = miles;
     }
 

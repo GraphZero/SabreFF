@@ -39,7 +39,6 @@ public class FlightsController {
         }
     }
 
-
     @RequestMapping( path = "/getFlightsByUserEmail/{email:.+}", method = RequestMethod.GET)
     public ResponseEntity<List<FlightEntity>> getFlightsByUserEmail(@PathVariable final String email){
         HttpHeaders responseHeaders = new HttpHeaders();

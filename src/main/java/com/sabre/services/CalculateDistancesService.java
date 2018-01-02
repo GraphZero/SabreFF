@@ -19,30 +19,28 @@ public class CalculateDistancesService {
 
 
     @Autowired
-    public CalculateDistancesService(GeoCodeService geoCodeService ) {
+    public CalculateDistancesService(GeoCodeService geoCodeService) {
         this.geoCodeService = geoCodeService;
     }
 
-    public double calculateDistance(String id1, String id2){
-        try {
-            city1 = geoCodeService.returnLattitudeAndLongitude( id1 );
-            city2 = geoCodeService.returnLattitudeAndLongitude( id2 );
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return 2 * radius * Math.asin( calculateSqrt(city1.getKey(), city2.getKey(), city1.getValue(), city2.getValue() )  );
+    public double calculateDistance(String id1, String id2) {
+        city1 = geoCodeService.returnLattitudeAndLongitude(id1);
+        city2 = geoCodeService.returnLattitudeAndLongitude(id2);
+        return 2 * radius * Math.asin(calculateSqrt(city1.getKey() * Math.PI / 180,
+                city2.getKey() * Math.PI / 180,
+                city1.getValue() * Math.PI / 180,
+                city2.getValue() * Math.PI / 180));
     }
 
-    private double calculateSqrt( final double latitudeOne, final double latitudeTwo,
-                                  final double longitudeOne, final double longitudeTwo){
-        return Math.sqrt( haversineFunction(latitudeTwo - latitudeOne) + Math.cos(latitudeOne)*Math.cos(latitudeTwo)
-                        * haversineFunction(longitudeTwo - longitudeOne) );
+    private double calculateSqrt(final double latitudeOne, final double latitudeTwo,
+                                 final double longitudeOne, final double longitudeTwo) {
+        return Math.sqrt(haversineFunction(latitudeTwo - latitudeOne) + Math.cos(latitudeOne) * Math.cos(latitudeTwo)
+                * haversineFunction(longitudeTwo - longitudeOne));
     }
 
-    private double haversineFunction( final double angle ){
-        return Math.sin(angle/2)*Math.sin(angle/2);
+    private double haversineFunction(final double angle) {
+        return Math.sin(angle / 2) * Math.sin(angle / 2);
     }
-
 
 
 }

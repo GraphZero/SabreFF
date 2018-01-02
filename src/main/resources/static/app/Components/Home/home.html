@@ -30,9 +30,10 @@
                 <li class="active" ><a href="#" ng-click="doShowFlights()" >Your Flights</a></li>
                 <li class="animate-show-hide" ng-repeat="flight in flights track by $index" ng-show="showFlights" >
                     <a href="#">
-                    Miles: {{ flight.miles }},
-                    Airport Departure Code: {{ flight.airportDepartureCode }},
-                    Airport Arrival Code: {{ flight.airportArrivalCode }} </a>
+                        Miles: {{ flight.miles }},
+                        Airport Departure Code: {{ flight.airportDepartureCode }},
+                        Airport Arrival Code: {{ flight.airportArrivalCode }}
+                    </a>
                 </li>
             </ul>
         </div>
