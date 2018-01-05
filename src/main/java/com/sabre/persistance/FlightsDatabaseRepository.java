@@ -6,7 +6,7 @@ import java.util.List;
 
 
 public interface FlightsDatabaseRepository {
-    void persistFlight(Flight flight);
-    List<Flight> getAllFlights();
-    List<Flight> getFlightsByUserEmail(String email);
+    void save(Flight flight);
+    List<Flight> findAll();
+    List<Flight> findFlightByUserEmail(String email);
 }

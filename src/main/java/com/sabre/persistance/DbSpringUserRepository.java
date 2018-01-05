@@ -3,15 +3,14 @@ package com.sabre.persistance;
 import com.sabre.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-
 import java.util.List;
 
 @Repository
-public class MsSqlSpringUserRepository implements  UserDatabaseRepository {
+public class DbSpringUserRepository implements UserDatabaseRepository {
     private SpringUserRepository springUserRepository;
 
     @Autowired
-    public MsSqlSpringUserRepository(SpringUserRepository springUserRepository) {
+    public DbSpringUserRepository(SpringUserRepository springUserRepository) {
         this.springUserRepository = springUserRepository;
     }
 

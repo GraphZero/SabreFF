@@ -9,24 +9,24 @@ import java.util.stream.Collectors;
 
 @Repository
 public class FlightsDatabaseRepositoryInMemoryImpl implements FlightsDatabaseRepository {
-    List<Flight> flights;
+    private List<Flight> flights;
 
     public FlightsDatabaseRepositoryInMemoryImpl() {
         flights = new ArrayList<>();
     }
 
     @Override
-    public void persistFlight(Flight flight) {
+    public void save(Flight flight) {
         flights.add(flight);
     }
 
     @Override
-    public List<Flight> getAllFlights() {
+    public List<Flight> findAll() {
         return flights;
     }
 
     @Override
-    public List<Flight> getFlightsByUserEmail(String email ) {
+    public List<Flight> findFlightByUserEmail(String email ) {
         return flights.stream()
                 .filter( x -> x.getUserEmail().trim().equals(email) )
                 .collect(Collectors.toList());

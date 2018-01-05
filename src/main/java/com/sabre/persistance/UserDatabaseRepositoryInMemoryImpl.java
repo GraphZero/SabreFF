@@ -7,11 +7,6 @@ import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Andrzej on 2017-10-31.
- */
-
-
 @Repository
 public class UserDatabaseRepositoryInMemoryImpl implements UserDatabaseRepository {
     List<User> users;

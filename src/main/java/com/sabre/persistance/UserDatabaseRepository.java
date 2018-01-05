@@ -4,9 +4,6 @@ import com.sabre.domain.User;
 
 import java.util.List;
 
-/**
- * Created by Andrzej on 2017-10-31.
- */
 public interface UserDatabaseRepository {
     void save(User user);
     void delete(long userId);

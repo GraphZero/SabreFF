@@ -11,7 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
-import java.util.Calendar;
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -24,16 +24,8 @@ public class FlightsController {
                              ParseDataFromCsvFileAndInsertToDatabaseService parseDataFromCsvFileAndInsertToDatabaseService) {
         this.flightsService = flightsService;
         this.parseDataFromCsvFileAndInsertToDatabaseService = parseDataFromCsvFileAndInsertToDatabaseService;
-        parse();
     }
 
-    private void parse() {
-        try {
-            parseDataFromCsvFileAndInsertToDatabaseService.readDataFromCsvFile();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
     @RequestMapping(path = "/getFlightsByUserEmail/{email}", method = RequestMethod.GET)
     public ResponseEntity<List<Flight>> getFlightsByUserEmail(@PathVariable final String email) {
@@ -61,8 +53,8 @@ public class FlightsController {
                                                        @RequestParam("airlineCode") final String airlineCode,
                                                        @RequestParam("flightClass") final FlightClass flightClass,
                                                        @RequestParam("returnTicket") final boolean returnTicket,
-                                                       @RequestParam("departureFlightDate") final Calendar departureFlightDate,
-                                                       @RequestParam("returnFlightlDate") final Calendar returnFlightlDate) {
+                                                       @RequestParam("departureFlightDate") final LocalDate departureFlightDate,
+                                                       @RequestParam("returnFlightlDate") final LocalDate returnFlightlDate) {
         flightsService.persistFlight(userEmail, airportDepartureCode, airportArrivalCode, airlineCode, flightClass,
                 returnTicket, departureFlightDate, returnFlightlDate);
         HttpHeaders responseHeaders = new HttpHeaders();

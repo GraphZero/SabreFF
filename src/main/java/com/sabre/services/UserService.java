@@ -21,7 +21,7 @@ public class UserService {
 
     @Autowired
 
-    public UserService(@Qualifier("msSqlSpringUserRepository") UserDatabaseRepository userDatabaseRepository, CalculateDistancesBetweenAirportsService calculateDistancesBetweenAirportsService) {
+    public UserService(@Qualifier("dbSpringUserRepository") UserDatabaseRepository userDatabaseRepository, CalculateDistancesBetweenAirportsService calculateDistancesBetweenAirportsService) {
         this.calculateDistancesBetweenAirportsService = calculateDistancesBetweenAirportsService;
         this.userDatabaseRepository = userDatabaseRepository;
         milesToLvlUp = 10000;

@@ -4,9 +4,10 @@ import com.sabre.domain.Flight;
 import com.sabre.domain.FlightClass;
 import com.sabre.persistance.FlightsDatabaseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
-import java.util.Calendar;
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -19,7 +20,7 @@ public class FlightsService {
     private CalculateDistancesBetweenAirportsService calculateDistancesBetweenAirportsService;
 
     @Autowired
-    public FlightsService(FlightsDatabaseRepository flightsDatabaseRepository,
+    public FlightsService(@Qualifier("dbSpringFlightsRepository") FlightsDatabaseRepository flightsDatabaseRepository,
                           CalculateDistancesBetweenAirportsService calculateDistancesBetweenAirportsService) {
         this.flightsDatabaseRepository = flightsDatabaseRepository;
         this.calculateDistancesBetweenAirportsService = calculateDistancesBetweenAirportsService;
@@ -29,7 +30,7 @@ public class FlightsService {
      * Persists fly that doesn't need calculating its distance
      */
     public void persistFlight(Flight flight) {
-        flightsDatabaseRepository.persistFlight(flight);
+        flightsDatabaseRepository.save(flight);
     }
 
     /**
@@ -38,18 +39,18 @@ public class FlightsService {
 
     public void persistFlight(String userEmail, String airportDepartureCode, String airportArrivalCode,
                               String airlineCode, FlightClass flightClass, boolean returnTicket,
-                              Calendar departureFlightDate, Calendar returnFlightlDate) {
-        flightsDatabaseRepository.persistFlight(new Flight(userEmail, airportDepartureCode, airportArrivalCode,
+                              LocalDate departureFlightDate, LocalDate returnFlightlDate) {
+        flightsDatabaseRepository.save(new Flight(userEmail, airportDepartureCode, airportArrivalCode,
                 airlineCode, calculateDistancesBetweenAirportsService.calculateDistance(airportDepartureCode,
                 airportArrivalCode), flightClass, returnTicket, departureFlightDate, returnFlightlDate));
     }
 
     public List<Flight> getAllFlights() {
-        return flightsDatabaseRepository.getAllFlights();
+        return flightsDatabaseRepository.findAll();
     }
 
     public List<Flight> getFlightsByUserEmail(String email) {
-        return flightsDatabaseRepository.getFlightsByUserEmail(email);
+        return flightsDatabaseRepository.findFlightByUserEmail(email);
     }
 
 }
