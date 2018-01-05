@@ -5,8 +5,9 @@
     <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-route.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-animate.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/assets/Panels.css" >
+    <link rel="stylesheet" href="/assets/Home.css" >
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="/app/components/home/home.js"></script>
     <script src="/app/shared/shared.js"></script>
@@ -17,26 +18,7 @@
 <body>
 
     <div class="container" ng-app="home">
-        <div class ="jumbotron">
-            <h1>
-                Hello to FrequentFlyer App!
-            </h1>
-            <p>
-                On this website you can access your flights and update them.
-            </p>
-        </div>
-        <div id="FlightsBlock" ng-controller="FlightsController" class="panel-group">
-            <ul class="nav nav-pills nav-stacked col-md-4 " >
-                <li class="active" ><a href="#" ng-click="doShowFlights()" >Your Flights</a></li>
-                <li class="animate-show-hide" ng-repeat="flight in flights track by $index" ng-show="showFlights" >
-                    <a href="#">
-                        Miles: {{ flight.miles }},
-                        Airport Departure Code: {{ flight.airportDepartureCode }},
-                        Airport Arrival Code: {{ flight.airportArrivalCode }}
-                    </a>
-                </li>
-            </ul>
-        </div>
+        <div ng-view></div>
     </div>
 
 </body>

@@ -3,7 +3,7 @@ package com.sabre.services;
 import com.sabre.domain.FlightClass;
 import com.sabre.domain.Flight;
 import com.sabre.persistance.FlightsDatabaseRepository;
-import com.sabre.persistance.FlightsDatabaseRepositoryInMemoryImpl;
+import com.sabre.persistance.memory.FlightsDatabaseRepositoryInMemoryImpl;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

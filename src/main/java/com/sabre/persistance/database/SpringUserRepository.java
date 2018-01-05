@@ -1,4 +1,4 @@
-package com.sabre.persistance;
+package com.sabre.persistance.database;
 
 import com.sabre.domain.User;
 import org.springframework.data.jpa.repository.JpaRepository;

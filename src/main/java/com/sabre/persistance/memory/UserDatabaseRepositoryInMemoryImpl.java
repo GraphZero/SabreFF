@@ -1,6 +1,7 @@
-package com.sabre.persistance;
+package com.sabre.persistance.memory;
 
 import com.sabre.domain.User;
+import com.sabre.persistance.UserDatabaseRepository;
 import org.springframework.stereotype.Repository;
 
 import javax.annotation.Nullable;

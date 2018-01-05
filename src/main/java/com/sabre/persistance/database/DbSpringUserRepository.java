@@ -1,6 +1,8 @@
-package com.sabre.persistance;
+package com.sabre.persistance.database;
 
 import com.sabre.domain.User;
+import com.sabre.persistance.UserDatabaseRepository;
+import com.sabre.persistance.database.SpringUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import java.util.List;

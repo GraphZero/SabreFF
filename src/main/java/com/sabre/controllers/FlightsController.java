@@ -3,27 +3,26 @@ package com.sabre.controllers;
 import com.sabre.domain.FlightClass;
 import com.sabre.domain.Flight;
 import com.sabre.services.FlightsService;
-import com.sabre.services.ParseDataFromCsvFileAndInsertToDatabaseService;
+import com.sabre.services.PersistDataFromCsvFileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
 
 @RestController
 public class FlightsController {
     FlightsService flightsService;
-    ParseDataFromCsvFileAndInsertToDatabaseService parseDataFromCsvFileAndInsertToDatabaseService;
+    PersistDataFromCsvFileService persistDataFromCsvFileService;
 
     @Autowired
     public FlightsController(FlightsService flightsService,
-                             ParseDataFromCsvFileAndInsertToDatabaseService parseDataFromCsvFileAndInsertToDatabaseService) {
+                             PersistDataFromCsvFileService persistDataFromCsvFileService) {
         this.flightsService = flightsService;
-        this.parseDataFromCsvFileAndInsertToDatabaseService = parseDataFromCsvFileAndInsertToDatabaseService;
+        this.persistDataFromCsvFileService = persistDataFromCsvFileService;
     }
 
 

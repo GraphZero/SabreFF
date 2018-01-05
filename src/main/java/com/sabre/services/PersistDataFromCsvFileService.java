@@ -20,8 +20,8 @@ import java.io.Reader;
  */
 
 @Service
-public class ParseDataFromCsvFileAndInsertToDatabaseService {
-    private static Logger logger = LogManager.getLogger(ParseDataFromCsvFileAndInsertToDatabaseService.class);
+public class PersistDataFromCsvFileService {
+    private static Logger logger = LogManager.getLogger(PersistDataFromCsvFileService.class);
     private UserService userService;
     private FlightsService flightsService;
     private ResourceLoader resourceLoader;
@@ -29,8 +29,8 @@ public class ParseDataFromCsvFileAndInsertToDatabaseService {
             "airLineCode", "miles", "class", "returnTicketOrOneWay", "departureDate", "arrivalDate"};
 
     @Autowired
-    public ParseDataFromCsvFileAndInsertToDatabaseService(UserService userService,  FlightsService flightsService,
-                                                          ResourceLoader resourceLoader) {
+    public PersistDataFromCsvFileService(UserService userService, FlightsService flightsService,
+                                         ResourceLoader resourceLoader) {
         this.userService = userService;
         this.resourceLoader = resourceLoader;
         this.flightsService = flightsService;
