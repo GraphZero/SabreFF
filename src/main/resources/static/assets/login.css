@@ -1,14 +1,17 @@
-
-body {
-    background-image: url("airplane-wallpaper1.jpg");
-    background-color: #cccccc;
-}
-
 @font-face {
     font-family: myFirstFont;
     src: url(http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300);
 }
 
+.center{
+    /** Center **/
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%); /* IE 9 */
+    -webkit-transform: translate(-50%, -50%); /* Chrome, Safari, Opera */
+}
 
 .form-style-8{
     font-family: 'Open Sans Condensed', arial, sans;
@@ -19,28 +22,7 @@ body {
     box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.22);
     -moz-box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.22);
     -webkit-box-shadow:  0px 0px 15px rgba(0, 0, 0, 0.22);
-    /** Center **/
-    position: absolute;
-    top: 40%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    -ms-transform: translate(-50%, -50%); /* IE 9 */
-    -webkit-transform: translate(-50%, -50%); /* Chrome, Safari, Opera */
-}
 
-/* start 'enter' transition */
-div.ng-enter {
-    /* transition on enter for .5s */
-    transition: .8s;
-
-    /* start with opacity 0 (invisible) */
-    opacity: 0;
-}
-
-/* end 'enter' transition */
-div.ng-enter-active {
-    /* end with opacity 1 (fade in) */
-    opacity: 1;
 }
 
 .form-style-8 h2{

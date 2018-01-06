@@ -1,7 +1,4 @@
 'use strict'
-/**
- * Created by Andrzej on 2017-11-30.
- */
 
 angular.module('home').controller('FlightsController', function($scope, $http, $location, $window, FlightsService){
 
