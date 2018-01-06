@@ -38,10 +38,13 @@
                 <span class="glyphicon glyphicon-send"></span>
                 Add a flight.</button>
         </div>
-        <div class="col-lg-4">
-            <button type="button" class="btn btn-primary btn-lg wide-button">
-                <span class="glyphicon glyphicon-plane"></span>
-                See your flights.</button>
+        <div class="col-lg-4" >
+            <a href="#!flights">
+                <button ng-click="getFlights()" type="button" class="btn btn-primary btn-lg wide-button">
+                    <span class="glyphicon glyphicon-plane"></span>
+                    See your flights.
+                </button>
+            </a>
         </div>
         <div class="col-lg-4">
             <button type="button" class="btn btn-primary btn-lg wide-button">

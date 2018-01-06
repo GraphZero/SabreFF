@@ -26,10 +26,9 @@ public class FlightsController {
     }
 
 
-    @RequestMapping(path = "/getFlightsByUserEmail/{email}", method = RequestMethod.GET)
+    @RequestMapping(path = "/getFlightsByUserEmail/{email:.+}", method = RequestMethod.GET)
     public ResponseEntity<List<Flight>> getFlightsByUserEmail(@PathVariable final String email) {
-        HttpHeaders responseHeaders = new HttpHeaders();
-        return new ResponseEntity<>(flightsService.getFlightsByUserEmail(email), responseHeaders, HttpStatus.OK);
+        return new ResponseEntity<>(flightsService.getFlightsByUserEmail(email), new HttpHeaders(), HttpStatus.OK);
     }
 
     @RequestMapping(path = "/getAllFlights", method = RequestMethod.GET)
