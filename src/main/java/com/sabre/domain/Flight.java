@@ -1,23 +1,34 @@
 package com.sabre.domain;
 
-import java.util.Calendar;
+import javax.persistence.*;
+import java.time.LocalDate;
+import java.util.Objects;
 
-public class FlightEntity {
+@Entity
+@Table(name = "Flights")
+public class Flight {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private long flightId;
+
     private String userEmail;
     private String airportDepartureCode;
     private String airportArrivalCode;
     private String airlineCode;
     private double miles;
+
+    @Enumerated(EnumType.STRING)
     private FlightClass flightClass;
     private boolean returnTicket;
-    private Calendar departureFlightDate;
-    private Calendar returnFlightlDate;
+    private LocalDate departureFlightDate;
+    private LocalDate returnFlightDate;
 
-    public FlightEntity() {
+    public Flight() {
     }
 
-    public FlightEntity( long id, String userEmail, long miles, String airportDepartureCode, String airportArrivalCode ) {
+    public Flight(long id, String userEmail, long miles, String airportDepartureCode, String airportArrivalCode ) {
         this.flightId = id;
         this.userEmail = userEmail;
         this.miles = miles;
@@ -25,9 +36,9 @@ public class FlightEntity {
         this.airportArrivalCode = airportArrivalCode;
     }
 
-    public FlightEntity(String userEmail, String airportDepartureCode, String airportArrivalCode, String airlineCode,
-                        double miles, FlightClass flightClass, boolean returnTicket, Calendar departureFlightDate,
-                        Calendar returnFlightlDate) {
+    public Flight(String userEmail, String airportDepartureCode, String airportArrivalCode, String airlineCode,
+                  double miles, FlightClass flightClass, boolean returnTicket, LocalDate departureFlightDate,
+                  LocalDate returnFlightDate) {
         this.userEmail = userEmail;
         this.airportDepartureCode = airportDepartureCode;
         this.airportArrivalCode = airportArrivalCode;
@@ -36,7 +47,7 @@ public class FlightEntity {
         this.flightClass = flightClass;
         this.returnTicket = returnTicket;
         this.departureFlightDate = departureFlightDate;
-        this.returnFlightlDate = returnFlightlDate;
+        this.returnFlightDate = returnFlightDate;
     }
 
     public String getUserEmail() {
@@ -95,20 +106,20 @@ public class FlightEntity {
         this.returnTicket = returnTicket;
     }
 
-    public Calendar getDepartureFlightDate() {
+    public LocalDate getDepartureFlightDate() {
         return departureFlightDate;
     }
 
-    public void setDepartureFlightDate(Calendar departureFlightDate) {
+    public void setDepartureFlightDate(LocalDate departureFlightDate) {
         this.departureFlightDate = departureFlightDate;
     }
 
-    public Calendar getReturnFlightlDate() {
-        return returnFlightlDate;
+    public LocalDate getReturnFlightDate() {
+        return returnFlightDate;
     }
 
-    public void setReturnFlightlDate(Calendar returnFlightlDate) {
-        this.returnFlightlDate = returnFlightlDate;
+    public void setReturnFlightDate(LocalDate returnFlightDate) {
+        this.returnFlightDate = returnFlightDate;
     }
 
     public long getFlightId() {
@@ -121,7 +132,7 @@ public class FlightEntity {
 
     @Override
     public String toString() {
-        return "FlightEntity{" +
+        return "Flight{" +
                 "userEmail='" + userEmail + '\'' +
                 ", airportDepartureCode='" + airportDepartureCode + '\'' +
                 ", airportArrivalCode='" + airportArrivalCode + '\'' +
@@ -130,7 +141,30 @@ public class FlightEntity {
                 ", flightClass=" + flightClass +
                 ", returnTicket=" + returnTicket +
                 ", departureFlightDate=" + departureFlightDate +
-                ", returnFlightlDate=" + returnFlightlDate +
+                ", returnFlightDate=" + returnFlightDate +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Flight)) return false;
+        Flight flight = (Flight) o;
+        return flightId == flight.flightId &&
+                Double.compare(flight.miles, miles) == 0 &&
+                returnTicket == flight.returnTicket &&
+                Objects.equals(userEmail, flight.userEmail) &&
+                Objects.equals(airportDepartureCode, flight.airportDepartureCode) &&
+                Objects.equals(airportArrivalCode, flight.airportArrivalCode) &&
+                Objects.equals(airlineCode, flight.airlineCode) &&
+                flightClass == flight.flightClass &&
+                Objects.equals(departureFlightDate, flight.departureFlightDate) &&
+                Objects.equals(returnFlightDate, flight.returnFlightDate);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(flightId, userEmail, airportDepartureCode, airportArrivalCode, airlineCode, miles, flightClass, returnTicket, departureFlightDate, returnFlightDate);
     }
 }

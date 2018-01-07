@@ -1,35 +1,32 @@
 package com.sabre.persistance;
 
-import com.sabre.domain.FlightEntity;
+import com.sabre.domain.Flight;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-/**
- * Created by Andrzej on 2017-11-15.
- */
 @Repository
 public class FlightsDatabaseRepositoryInMemoryImpl implements FlightsDatabaseRepository {
-    List<FlightEntity> flights;
+    private List<Flight> flights;
 
     public FlightsDatabaseRepositoryInMemoryImpl() {
         flights = new ArrayList<>();
     }
 
     @Override
-    public void persistFlight(FlightEntity flightEntity) {
-        flights.add(flightEntity);
+    public void save(Flight flight) {
+        flights.add(flight);
     }
 
     @Override
-    public List<FlightEntity> getAllFlights() {
+    public List<Flight> findAll() {
         return flights;
     }
 
     @Override
-    public List<FlightEntity> getFlightsByUserEmail( String email ) {
+    public List<Flight> findFlightByUserEmail(String email ) {
         return flights.stream()
                 .filter( x -> x.getUserEmail().trim().equals(email) )
                 .collect(Collectors.toList());
