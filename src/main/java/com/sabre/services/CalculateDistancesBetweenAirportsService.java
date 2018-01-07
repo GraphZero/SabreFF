@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 
 /**
- * Created by Andrzej on 2017-11-09.
+ * Used to calculate haversine formula. Uses {@link com.sabre.services.GeoCodeService} to get data from Sabre REST api.
  */
 
 @Service

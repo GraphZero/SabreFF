@@ -11,7 +11,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 /**
- * Created by Andrzej on 2017-11-15.
+ * Controls communication with DAO.
  */
 
 @Service
@@ -36,7 +36,6 @@ public class FlightsService {
     /**
      * Persists fly that needs calculating its distance
      */
-
     public void persistFlight(String userEmail, String airportDepartureCode, String airportArrivalCode,
                               String airlineCode, FlightClass flightClass, boolean returnTicket,
                               LocalDate departureFlightDate, LocalDate returnFlightlDate) {

@@ -10,7 +10,7 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 /**
- * Created by Andrzej on 2017-11-09.
+ * Controls communication with DAO.
  */
 
 @Service
@@ -20,8 +20,8 @@ public class UserService {
     long milesToLvlUp;
 
     @Autowired
-
-    public UserService(@Qualifier("dbSpringUserRepository") UserDatabaseRepository userDatabaseRepository, CalculateDistancesBetweenAirportsService calculateDistancesBetweenAirportsService) {
+    public UserService(@Qualifier("dbSpringUserRepository") UserDatabaseRepository userDatabaseRepository,
+                       CalculateDistancesBetweenAirportsService calculateDistancesBetweenAirportsService) {
         this.calculateDistancesBetweenAirportsService = calculateDistancesBetweenAirportsService;
         this.userDatabaseRepository = userDatabaseRepository;
         milesToLvlUp = 10000;

@@ -13,6 +13,9 @@ app.config(function($routeProvider) {
         .when("/flights", {
             templateUrl : "/app/components/home/flights.htm"
         })
+        .when("/adminPage", {
+            templateUrl : "/app/components/home/adminPage.htm"
+        })
         .otherwise({
             template : "/app/components/login/loginPage.htm"
         });

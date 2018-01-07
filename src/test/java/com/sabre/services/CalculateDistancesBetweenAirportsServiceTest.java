@@ -32,7 +32,6 @@ public class CalculateDistancesBetweenAirportsServiceTest {
     @Autowired
     CalculateDistancesBetweenAirportsService calculateDistancesBetweenAirportsService;
 
-
     @Test
     public void calculateDistance() {
         assertTrue( calculateDistancesBetweenAirportsService.calculateDistance("KRK", "WMI") > 270.5 &&

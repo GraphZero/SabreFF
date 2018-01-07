@@ -19,7 +19,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Created by Andrzej on 2017-11-09.
+ * Creates requests to Sabre api to get airports latitudes and longitudes.
  */
 
 @Service
@@ -40,7 +40,7 @@ public class GeoCodeService {
                 parseResponseAndFindLongitude(result.get("Results").toString()));
     }
 
-    private void setRequestHeaders(HttpPost request){
+    protected void setRequestHeaders(HttpPost request){
         request.addHeader("authorization", token);
         request.addHeader("Content-Type", "application/json");
     }

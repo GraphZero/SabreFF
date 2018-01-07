@@ -68,12 +68,14 @@
 .form-style-8 input[type="button"],
 .form-style-8 input[type="submit"]{
     height:40px;
-    width:100px;
     background: #4D4D4D;
     border-radius:0;
     font-size: 18px;
     position:relative;
-    top:50%;
-    left:50%;
-    margin: 5px -50px -20px;
+    width: 150px;
+}
+
+#t{
+    padding-top: 10px;
+    margin-left: 70px;
 }

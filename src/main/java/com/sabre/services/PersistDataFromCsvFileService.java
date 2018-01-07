@@ -16,7 +16,7 @@ import java.io.IOException;
 import java.io.Reader;
 
 /**
- * Created by Andrzej on 2017-11-15.
+ * Used to parse data from provided CSV data file.
  */
 
 @Service

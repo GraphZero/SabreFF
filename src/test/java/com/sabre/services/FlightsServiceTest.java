@@ -69,4 +69,21 @@ public class FlightsServiceTest {
         assertEquals( dbSize + 1, flightsDatabaseRepository.findAll().size() );
     }
 
+    @Test
+    public void shouldReturnAllFlights() {
+        long dbSize = flightsDatabaseRepository.findAll().size();
+        flightsService.persistFlight( "A", "KRK", "WMI", "D",
+                FlightClass.ECONOMY, true, null, null );
+        flightsService.persistFlight( "A", "KRK", "WMI", "D",
+                FlightClass.ECONOMY, true, null, null );
+        assertEquals( dbSize + 2, flightsDatabaseRepository.findAll().size() );
+    }
+
+    @Test
+    public void shouldReturnFlightByUserEmail() {
+        flightsService.persistFlight( "A", "KRK", "WMI", "D",
+                FlightClass.ECONOMY, true, null, null );
+        assertNotNull(  flightsDatabaseRepository.findFlightByUserEmail("A") );
+    }
+
 }

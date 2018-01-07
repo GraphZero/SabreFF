@@ -1,5 +1,6 @@
 package com.sabre.services;
 
+import org.apache.http.client.methods.HttpPost;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -49,9 +50,25 @@ class GeoCodeServiceTest {
         assertNotNull( geoCodeService.getResponseFromSabreApi("AMM") );
     }
 
+    @Test
+    void shouldAddAuthorizationHeader(){
+        HttpPost httpPost = new HttpPost();
+        geoCodeService.setRequestHeaders(httpPost);
+        assertTrue( httpPost.containsHeader("authorization") );
+    }
+
+    @Test
+    void shouldAddContentTypeHeader(){
+        HttpPost httpPost = new HttpPost();
+        geoCodeService.setRequestHeaders(httpPost);
+        assertTrue( httpPost.containsHeader("Content-Type") );
+    }
+
     @NotNull
     private String getResponse(){
         return "[{GeoCodeRS={status=ONE_PLACE_FOUND, Place=[{confidenceFactor=ADDRESS_QUALITY, latitude=50.078056, longitude=19.786111, Name=Krakow, Category=AIR, Id=KRK, City=Krakow, Country=PL}]}}]";
     }
+
+
 
 }
