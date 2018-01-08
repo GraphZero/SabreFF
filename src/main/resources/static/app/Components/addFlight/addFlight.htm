@@ -1,0 +1,24 @@
+<div class="form-style-8 ng-enter ng-enter-active center" ng-controller="AddFlightCtrl">
+    <h2>Add Flight</h2>
+    <form>
+        <input required type="text" name="airport-departure-code" placeholder="Airport Departure Code" ng-model="airportDepartureCode" />
+        <input required type="text" name="airport-arrival-code" placeholder="Airport Arrival Code" ng-model="airportArrivalCode"/>
+        <input type="text" name="airline-code" placeholder="Airline Code" ng-model="airlineCode"/>
+        <input type="number" name="miles" placeholder="Miles" ng-model="miles"/>
+        <input type="text" name="flight-class" placeholder="Flight Class" ng-model="flightClass"/>
+        <div class="row">
+            <div class="col-lg-10">
+                <label > Return Ticket </label>
+            </div>
+            <div class="col-lg-2">
+                <input type="checkbox" id="checkbox" name="return-ticket" ng-model="returnTicket"/>
+            </div>
+
+        </div>
+        <input type="date" name="departure-flight-date" placeholder="Departure Flight Date" ng-model="departureFlightDate" />
+        <input type="date" name="return-flight-date" placeholder="Return Flight Date" ng-model="returnFlightDate" />
+        <a href="#!">
+            <input type="button" class="btn btn-primary" value="Add Flight" ng-click="addFlight()"/>
+        </a>
+    </form>
+</div>

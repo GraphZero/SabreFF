@@ -45,6 +45,7 @@
 .form-style-8 input[type="url"],
 .form-style-8 input[type="password"],
 .form-style-8 textarea,
+.form-style-8 label,
 .form-style-8 select
 {
     box-sizing: border-box;

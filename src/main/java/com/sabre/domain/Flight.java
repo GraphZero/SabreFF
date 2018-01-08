@@ -1,7 +1,11 @@
 package com.sabre.domain;
 
+import com.fasterxml.jackson.annotation.JsonSetter;
+
 import javax.persistence.*;
+import java.time.Instant;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Objects;
 
 @Entity
@@ -118,9 +122,16 @@ public class Flight {
         return returnFlightDate;
     }
 
-    public void setReturnFlightDate(LocalDate returnFlightDate) {
-        this.returnFlightDate = returnFlightDate;
+    @JsonSetter
+    public void setReturnFlightDate(long returnFlightDate) {
+        this.returnFlightDate = Instant.ofEpochMilli(returnFlightDate).atZone(ZoneId.systemDefault()).toLocalDate();
     }
+
+    @JsonSetter
+    public void setDepartureFlightDate(long departureFlightDate) {
+        this.departureFlightDate = Instant.ofEpochMilli(departureFlightDate).atZone(ZoneId.systemDefault()).toLocalDate();
+    }
+
 
     public long getFlightId() {
         return flightId;
