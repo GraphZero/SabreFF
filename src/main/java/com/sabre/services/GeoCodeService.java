@@ -39,27 +39,19 @@ public class GeoCodeService {
         } catch (IOException e) {
             logger.error("Couldnt get content");
         }
-        if ( result.get("Results") == null ){
-            System.out.println(result.toString());
-            logger.warn("Results are null, couldnt connect with Sabre Api! \n" + result.toString() );
-        }
         return Optional
                 .ofNullable(result.get("Results"))
                 .map( x -> new Pair<>(parseResponseAndFindLatitude(x.toString()),
                     parseResponseAndFindLongitude(x.toString())));
     }
 
-    protected void setRequestHeaders(HttpPost request){
-        request.addHeader("authorization", token);
-        request.addHeader("Content-Type", "application/json");
-    }
 
     protected HttpResponse getResponseFromSabreApi(String airPortId){
         HttpClient httpClient = HttpClientBuilder.create().build();
         HttpPost request = new HttpPost(requestUrl);
         StringEntity input = null;
         try {
-            input = new StringEntity(requestBody(airPortId));
+            input = new StringEntity(requestBody(airPortId.trim()));
         } catch (UnsupportedEncodingException e) {
             logger.error("Couldnt parse request.");
         }
@@ -71,6 +63,11 @@ public class GeoCodeService {
             logger.error("Couldnt get response from Sabre api.");
         }
         return null;
+    }
+
+    protected void setRequestHeaders(HttpPost request){
+        request.addHeader("authorization", token);
+        request.addHeader("Content-Type", "application/json");
     }
 
     @NotNull
@@ -89,7 +86,7 @@ public class GeoCodeService {
 
     @Nullable
     protected Double parseResponseAndFindLatitude(String response) {
-        Pattern p = Pattern.compile("latitude=[0-9]*.[0-9]*,+");
+        Pattern p = Pattern.compile("latitude=.[0-9]*.[0-9]*,+");
         Matcher m = p.matcher(response);
         if (m.find()) {
             return parseShorterResult(m.group());
@@ -99,7 +96,7 @@ public class GeoCodeService {
 
     @Nullable
     protected Double parseResponseAndFindLongitude(String response) {
-        Pattern p = Pattern.compile("longitude=[0-9]*.[0-9]*,+");
+        Pattern p = Pattern.compile("longitude=.[0-9]*.[0-9]*,+");
         Matcher m = p.matcher(response);
         if (m.find()) {
             return parseShorterResult(m.group());
