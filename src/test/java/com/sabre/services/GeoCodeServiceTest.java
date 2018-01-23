@@ -19,15 +19,15 @@ class GeoCodeServiceTest {
     @Test
     // Latitude and longitude for KRK Balice new Pair<>(50.077778, 19.784722)
     void testLattitude() {
-        assertTrue(geoCodeService.returnLattitudeAndLongitude("KRK" ).getKey() < 50.1
-                && geoCodeService.returnLattitudeAndLongitude("KRK" ).getKey() > 50.05);
+        assertTrue(geoCodeService.returnLattitudeAndLongitude("KRK" ).get().getKey() < 50.1
+                && geoCodeService.returnLattitudeAndLongitude("KRK" ).get().getKey() > 50.05);
     }
 
     @Test
     // Latitude and longitude for KRK Balice new Pair<>(50.077778, 19.784722)
     void testLongitude() {
-        assertTrue(geoCodeService.returnLattitudeAndLongitude("KRK" ).getValue() < 19.8
-                && geoCodeService.returnLattitudeAndLongitude("KRK" ).getValue() > 19.7);
+        assertTrue(geoCodeService.returnLattitudeAndLongitude("KRK" ).get().getValue() < 19.8
+                && geoCodeService.returnLattitudeAndLongitude("KRK" ).get().getValue() > 19.7);
     }
 
     @Test

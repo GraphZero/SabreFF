@@ -25,15 +25,20 @@ public class PersistDataFromCsvFileService {
     private UserService userService;
     private FlightsService flightsService;
     private ResourceLoader resourceLoader;
+    private CalculateDistancesBetweenAirportsService calculateDistancesBetweenAirportsService;
+
     private final String[] HEADERS = {"firstName", "secondName", "email", "airportDepartureCode", "airportArrivalCode",
-            "airLineCode", "miles", "class", "returnTicketOrOneWay", "departureDate", "arrivalDate"};
+            "airLineCode", "id", "class", "returnTicketOrOneWay", "departureDate", "arrivalDate"};
 
     @Autowired
-    public PersistDataFromCsvFileService(UserService userService, FlightsService flightsService,
-                                         ResourceLoader resourceLoader) {
+    public PersistDataFromCsvFileService(UserService userService,
+                                         FlightsService flightsService,
+                                         ResourceLoader resourceLoader,
+                                         CalculateDistancesBetweenAirportsService calculateDistancesBetweenAirportsService) {
         this.userService = userService;
         this.resourceLoader = resourceLoader;
         this.flightsService = flightsService;
+        this.calculateDistancesBetweenAirportsService = calculateDistancesBetweenAirportsService;
     }
 
     public void readDataFromCsvFile() throws IOException {
@@ -49,29 +54,38 @@ public class PersistDataFromCsvFileService {
         persistUsersToDatabase(records);
     }
 
-    private void persistUsersToDatabase(Iterable<CSVRecord> records) {
-        int flightId = 0;
+    protected void persistUsersToDatabase(Iterable<CSVRecord> records) {
         for (CSVRecord record : records) {
             if ( !userService.isUserInDatabase(record.get("email")) ) {
-                userService.addUser(new User(record.get("firstName"), record.get("secondName"),
-                        record.get("email"), Double.parseDouble(record.get("miles"))));
-                logger.info("Persisting user " );
+                userService.addUser(
+                        new User(record.get("firstName"),
+                        record.get("secondName"),
+                        record.get("email"),
+                        Double.parseDouble(record.get("id"))));
+                logger.info("Persisting user " +  record.get("firstName"));
             } else{
                 User user = userService.getUserByEmail(record.get("email"));
-                user.setMiles( user.getMiles() + Double.parseDouble(record.get("miles") ));
+                user.setInitialMiles( user.getInitialMiles() + calculateDistancesBetweenAirportsService
+                        .calculateDistance(record.get("airportDepartureCode"), record.get("airportArrivalCode")) );
             }
-            persistFlightToDatabase(flightId, record);
-            logger.info("Persisting flight number " + flightId);
-            flightId++;
+            persistFlightToDatabase( Long.parseLong(record.get("id").trim()) , record);
+            logger.info("Persisting flight with id: " + Long.parseLong(record.get("id").trim()));
         }
     }
 
-    private void persistFlightToDatabase(long id, CSVRecord record) {
-        flightsService.persistFlight( new Flight( id,
-                record.get("email"),
-                Long.parseLong(record.get("miles").trim())
-                , record.get("airportDepartureCode")
-                , record.get("airportArrivalCode") ));
+    protected void persistFlightToDatabase(long id, CSVRecord record) {
+        double distance = calculateDistancesBetweenAirportsService
+                .calculateDistance(record.get("airportDepartureCode"), record.get("airportArrivalCode"));
+        if ( distance == -1 ){
+            logger.warn("Couldn't calculate and save flight distance. ");
+        } else{
+            flightsService.persistFlight( new Flight( id,
+                    record.get("email")
+                    , (long) distance
+                    , record.get("airportDepartureCode")
+                    , record.get("airportArrivalCode") ));
+        }
+
     }
 
 }

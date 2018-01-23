@@ -2,6 +2,7 @@ package com.sabre.services;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.util.Pair;
+import org.apache.http.Header;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
@@ -15,6 +16,8 @@ import javax.annotation.Nullable;
 import javax.validation.constraints.NotNull;
 import java.io.*;
 import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -24,20 +27,26 @@ import java.util.regex.Pattern;
 
 @Service
 public class GeoCodeService {
-    private final String token = "Bearer T1RLAQIAqDp6VOUxGF903eBQIZeBFYOlWBADx/QPZpOu79+EmUWfoP2CAADA0VDFKXb7NIveEHpyx1zNtFEQ9+CDGIIBoUkZds2EI1/Tsn95+jjx5T8fh9Urc1gC7xJBbvvPMT1VH3WKHuJdNZw4BcP/MI4l05OebulWEY1XZfG0+HXt9dpSYCCPWjRzi7auAylON2JTqDtN9kl4BSpKkRD9gguxQ+n8mfUzi/dbrElgD0sbGdXxHKUfJgqWWHfWZ/hUrYP2q5fxjhAZxu6Y8syB+4HEkT7fU6AZPGJYV95RXgSVkLbs0IqFNgny";
+    private final String token = "Bearer T1RLAQLGin7ZH3kVjtjGMyiTLzKYV0oJeBDoDUKXE+0ChKEh3Gq3atu6AADAWlztfJTAKn0up8PayxiYuHXZgCahQyOqo/NBwX2Q9FQfcJP8a5s3qSlwHgPEEjXfUBDmQ4YeRpFHMAvyRxv03Czg9waoW1qaFRIkyxo7zzaW1Hl3qppptHhUzGgFrghmQ3khvI9/8cpbbHJZ+/kUH8Ync9b1V3PoRmUvq5MjJ4ZaZ524ouw1FZAB4WEmcFVRxHdPUitnL9B0uZvNK5fl8+I9uShdwNGKKf7hi/Fgh4oetmmutadBNS654rraZOit";
     private final String requestUrl = "https://api.test.sabre.com/v1/lists/utilities/geocode/locations";
     private static Logger logger = LogManager.getLogger(GeoCodeService.class);
 
-    public Pair<Double, Double> returnLattitudeAndLongitude(String airPortId) {
+    public Optional<Pair<Double, Double>> returnLattitudeAndLongitude(String airPortId) {
         HashMap<String, Object> result = null;
         try {
-            result = new ObjectMapper().readValue(getResponseFromSabreApi(airPortId)
-                    .getEntity().getContent(), HashMap.class);
+            result = new ObjectMapper()
+                    .readValue(getResponseFromSabreApi(airPortId).getEntity().getContent(), HashMap.class);
         } catch (IOException e) {
             logger.error("Couldnt get content");
         }
-        return new Pair<>(parseResponseAndFindLatitude(result.get("Results").toString()),
-                parseResponseAndFindLongitude(result.get("Results").toString()));
+        if ( result.get("Results") == null ){
+            System.out.println(result.toString());
+            logger.warn("Results are null, couldnt connect with Sabre Api! \n" + result.toString() );
+        }
+        return Optional
+                .ofNullable(result.get("Results"))
+                .map( x -> new Pair<>(parseResponseAndFindLatitude(x.toString()),
+                    parseResponseAndFindLongitude(x.toString())));
     }
 
     protected void setRequestHeaders(HttpPost request){

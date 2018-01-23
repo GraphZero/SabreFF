@@ -37,7 +37,6 @@ public class UserServiceTest {
 
     @TestConfiguration
     @DataJpaTest
-    @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
     class UserServiceTestContextConfiguration {
 
         @Bean
@@ -79,6 +78,11 @@ public class UserServiceTest {
     }
 
     @Test
+    public void testSumOfUserFlights(){
+        assertEquals( (long) dbSpringUserRepository.findByEmail("noah.williams@travel-sabre.com").getFlightsMiles(), (long) 407946 );
+    }
+
+    @Test
     public void addMilesByCities() {
     }
 
@@ -105,4 +109,6 @@ public class UserServiceTest {
     @Test
     public void getUserByEmail() {
     }
+
+
 }
