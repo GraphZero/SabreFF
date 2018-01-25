@@ -39,9 +39,9 @@ public class FlightsService {
     public void persistFlight(String userEmail, String airportDepartureCode, String airportArrivalCode,
                               String airlineCode, FlightClass flightClass, boolean returnTicket,
                               LocalDate departureFlightDate, LocalDate returnFlightlDate) {
-        flightsDatabaseRepository.save(new Flight(userEmail, airportDepartureCode, airportArrivalCode,
-                airlineCode, calculateDistancesBetweenAirportsService.calculateDistance(airportDepartureCode,
-                airportArrivalCode), flightClass, returnTicket, departureFlightDate, returnFlightlDate));
+        flightsDatabaseRepository.save(new Flight(userEmail, airportDepartureCode, airportArrivalCode, airlineCode,
+                calculateDistancesBetweenAirportsService.calculateDistance(airportDepartureCode, airportArrivalCode),
+                flightClass, returnTicket, departureFlightDate, returnFlightlDate));
     }
 
     public List<Flight> getAllFlights() {

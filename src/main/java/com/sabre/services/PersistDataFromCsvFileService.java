@@ -41,7 +41,7 @@ public class PersistDataFromCsvFileService {
         this.calculateDistancesBetweenAirportsService = calculateDistancesBetweenAirportsService;
     }
 
-    public void readDataFromCsvFile() throws IOException {
+    public void cacheDataFromCsvFile() throws IOException {
         logger.info("Parsing data from file.");
         Resource csvResource = resourceLoader.getResource("classpath:static/csv/usersWithFlights.csv");
         Reader in = new FileReader(csvResource.getFile());
@@ -51,10 +51,10 @@ public class PersistDataFromCsvFileService {
                 .withHeader(HEADERS)
                 .parse(in);
 
-        persistUsersToDatabase(records);
+        saveUsersToDatabase(records);
     }
 
-    protected void persistUsersToDatabase(Iterable<CSVRecord> records) {
+    protected void saveUsersToDatabase(Iterable<CSVRecord> records) {
         for (CSVRecord record : records) {
             if ( !userService.isUserInDatabase(record.get("email")) ) {
                 userService.addUser(
@@ -68,12 +68,12 @@ public class PersistDataFromCsvFileService {
                 user.setInitialMiles( user.getInitialMiles() + calculateDistancesBetweenAirportsService
                         .calculateDistance(record.get("airportDepartureCode"), record.get("airportArrivalCode")) );
             }
-            persistFlightToDatabase( Long.parseLong(record.get("id").trim()) , record);
+            saveFlightToDatabase( Long.parseLong(record.get("id").trim()) , record);
             logger.info("Persisting flight with id: " + Long.parseLong(record.get("id").trim()));
         }
     }
 
-    protected void persistFlightToDatabase(long id, CSVRecord record) {
+    protected void saveFlightToDatabase(long id, CSVRecord record) {
         double distance = calculateDistancesBetweenAirportsService
                 .calculateDistance(record.get("airportDepartureCode"), record.get("airportArrivalCode"));
         if ( distance == -1 ){
