@@ -16,8 +16,8 @@ import java.util.List;
 
 @RestController
 public class FlightsController {
-    FlightsService flightsService;
-    PersistDataFromCsvFileService persistDataFromCsvFileService;
+    private final FlightsService flightsService;
+    private final PersistDataFromCsvFileService persistDataFromCsvFileService;
 
     @Autowired
     public FlightsController(FlightsService flightsService,

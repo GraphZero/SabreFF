@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class MilesController {
-    UserService userService;
+    private final UserService userService;
 
     @Autowired
     public MilesController(UserService userService) {
