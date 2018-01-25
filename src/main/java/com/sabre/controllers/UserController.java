@@ -28,10 +28,10 @@ public class UserController {
     }
 
     @RequestMapping( path = "/addUser", method = RequestMethod.POST)
-    public ResponseEntity<String> addUser(@RequestBody() final User user){
+    public ResponseEntity<User> addUser(@RequestBody() final User user){
         userService.addUser(user);
         HttpHeaders responseHeaders = new HttpHeaders();
-        return new ResponseEntity<>( "OK!", responseHeaders, HttpStatus.CREATED);
+        return new ResponseEntity<>( user, responseHeaders, HttpStatus.CREATED);
     }
 
     @RequestMapping( path = "/deleteUser", method = RequestMethod.DELETE)

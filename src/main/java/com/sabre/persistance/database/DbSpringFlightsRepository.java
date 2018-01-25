@@ -1,6 +1,8 @@
-package com.sabre.persistance;
+package com.sabre.persistance.database;
 
 import com.sabre.domain.Flight;
+import com.sabre.persistance.FlightsDatabaseRepository;
+import com.sabre.persistance.database.SpringFlightsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import java.util.List;

@@ -3,7 +3,7 @@ package com.sabre.services;
 import com.sabre.domain.FlightClass;
 import com.sabre.domain.Flight;
 import com.sabre.persistance.FlightsDatabaseRepository;
-import com.sabre.persistance.FlightsDatabaseRepositoryInMemoryImpl;
+import com.sabre.persistance.memory.FlightsDatabaseRepositoryInMemoryImpl;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,6 +67,23 @@ public class FlightsServiceTest {
         flightsService.persistFlight( "A", "KRK", "WMI", "D",
                 FlightClass.ECONOMY, true, null, null );
         assertEquals( dbSize + 1, flightsDatabaseRepository.findAll().size() );
+    }
+
+    @Test
+    public void shouldReturnAllFlights() {
+        long dbSize = flightsDatabaseRepository.findAll().size();
+        flightsService.persistFlight( "A", "KRK", "WMI", "D",
+                FlightClass.ECONOMY, true, null, null );
+        flightsService.persistFlight( "A", "KRK", "WMI", "D",
+                FlightClass.ECONOMY, true, null, null );
+        assertEquals( dbSize + 2, flightsDatabaseRepository.findAll().size() );
+    }
+
+    @Test
+    public void shouldReturnFlightByUserEmail() {
+        flightsService.persistFlight( "A", "KRK", "WMI", "D",
+                FlightClass.ECONOMY, true, null, null );
+        assertNotNull(  flightsDatabaseRepository.findFlightByUserEmail("A") );
     }
 
 }

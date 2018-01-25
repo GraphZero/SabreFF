@@ -1,6 +1,7 @@
-package com.sabre.persistance;
+package com.sabre.persistance.memory;
 
 import com.sabre.domain.User;
+import com.sabre.persistance.UserDatabaseRepository;
 import org.springframework.stereotype.Repository;
 
 import javax.annotation.Nullable;
@@ -19,7 +20,7 @@ public class UserDatabaseRepositoryInMemoryImpl implements UserDatabaseRepositor
     public double addMiles(double miles, String userEmail  ) {
         for ( User x : users ){
             if ( x.getEmail() == userEmail ){
-                x.setMiles( x.getMiles() + miles);
+                x.setInitialMiles( x.getInitialMiles() + miles);
             }
         }
         return miles;
@@ -28,7 +29,7 @@ public class UserDatabaseRepositoryInMemoryImpl implements UserDatabaseRepositor
     @Override
     public double findMilesByEmail(String userEmail) {
         for ( User x : users ){
-            if ( x.getEmail() == userEmail ) return x.getMiles();
+            if ( x.getEmail() == userEmail ) return x.getInitialMiles();
         }
         return -1;
     }

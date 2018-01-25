@@ -1,0 +1,74 @@
+
+body {
+    background-image: url("airplane-wallpaper1.jpg");
+    background-color: #cccccc;
+    background-size: cover;
+}
+
+
+/* start 'enter' transition */
+div.ng-enter {
+    /* transition on enter for .5s */
+    transition: .8s;
+
+    /* start with opacity 0 (invisible) */
+    opacity: 0;
+}
+
+/* end 'enter' transition */
+div.ng-enter-active {
+    /* end with opacity 1 (fade in) */
+    opacity: 1;
+}
+
+#app-header{
+    background-color: #4D4D4D;
+    color: whitesmoke;
+}
+
+.zero-radius{
+    border-radius:0;
+}
+
+.custom{
+    background-color: #4D4D4D;
+}
+
+.well{
+    text-align: center;
+    margin-right: -15px;
+}
+#prog{
+    height: 104px;
+}
+
+#prog2{
+    margin-left: -15px;
+}
+
+#prog p{
+    font-size: 30px;
+    margin-top: 40px;
+}
+span.glyphicon-star-empty {
+    font-size: 60px;
+}
+
+.wide-button{
+    width: 100%;
+    background-color: #4D4D4D;
+    border-color: black;
+}
+
+.wide-button:hover{
+    background-color: whitesmoke;
+    color: #4D4D4D;
+}
+
+#checkbox{
+    width:30px;
+    height:30px;
+    background:white;
+    border-radius:5px;
+    border:2px solid #555;
+}

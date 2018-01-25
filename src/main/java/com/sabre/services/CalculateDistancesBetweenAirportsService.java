@@ -5,9 +5,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.util.Optional;
 
 /**
- * Created by Andrzej on 2017-11-09.
+ * Used to calculate haversine formula. Uses {@link com.sabre.services.GeoCodeService} to get data from Sabre REST api.
  */
 
 @Service
@@ -17,19 +18,24 @@ public class CalculateDistancesBetweenAirportsService {
     private Pair<Double, Double> city2;
     private static final long radius = 6371;
 
-
     @Autowired
     public CalculateDistancesBetweenAirportsService(GeoCodeService geoCodeService) {
         this.geoCodeService = geoCodeService;
     }
 
+    /**
+     * @return -1 if couldnt get the correct latitude or longitude.
+     */
     public double calculateDistance(String id1, String id2) {
-        city1 = geoCodeService.returnLattitudeAndLongitude(id1);
-        city2 = geoCodeService.returnLattitudeAndLongitude(id2);
-        return 2 * radius * Math.asin(calculateSqrt(city1.getKey() * Math.PI / 180,
-                city2.getKey() * Math.PI / 180,
-                city1.getValue() * Math.PI / 180,
-                city2.getValue() * Math.PI / 180));
+        Optional<Pair<Double,Double>> city1 = geoCodeService.returnLattitudeAndLongitude(id1);
+        Optional<Pair<Double,Double>> city2 = geoCodeService.returnLattitudeAndLongitude(id2);
+        if ( city1.isPresent() && city2.isPresent() ){
+            return 2 * radius * Math.asin(calculateSqrt(city1.get().getKey() * Math.PI / 180,
+                    city2.get().getKey() * Math.PI / 180,
+                    city1.get().getValue() * Math.PI / 180,
+                    city2.get().getValue() * Math.PI / 180));
+        }
+        return -1;
     }
 
     private double calculateSqrt(final double latitudeOne, final double latitudeTwo,

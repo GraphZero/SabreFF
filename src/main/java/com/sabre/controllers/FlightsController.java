@@ -3,34 +3,33 @@ package com.sabre.controllers;
 import com.sabre.domain.FlightClass;
 import com.sabre.domain.Flight;
 import com.sabre.services.FlightsService;
-import com.sabre.services.ParseDataFromCsvFileAndInsertToDatabaseService;
+import com.sabre.services.PersistDataFromCsvFileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
 
 @RestController
 public class FlightsController {
     FlightsService flightsService;
-    ParseDataFromCsvFileAndInsertToDatabaseService parseDataFromCsvFileAndInsertToDatabaseService;
+    PersistDataFromCsvFileService persistDataFromCsvFileService;
 
     @Autowired
     public FlightsController(FlightsService flightsService,
-                             ParseDataFromCsvFileAndInsertToDatabaseService parseDataFromCsvFileAndInsertToDatabaseService) {
+                             PersistDataFromCsvFileService persistDataFromCsvFileService) {
         this.flightsService = flightsService;
-        this.parseDataFromCsvFileAndInsertToDatabaseService = parseDataFromCsvFileAndInsertToDatabaseService;
+        this.persistDataFromCsvFileService = persistDataFromCsvFileService;
     }
 
 
-    @RequestMapping(path = "/getFlightsByUserEmail/{email}", method = RequestMethod.GET)
+    @RequestMapping(path = "/getFlightsByUserEmail/{email:.+}", method = RequestMethod.GET)
     public ResponseEntity<List<Flight>> getFlightsByUserEmail(@PathVariable final String email) {
-        HttpHeaders responseHeaders = new HttpHeaders();
-        return new ResponseEntity<>(flightsService.getFlightsByUserEmail(email), responseHeaders, HttpStatus.OK);
+        return new ResponseEntity<>(flightsService.getFlightsByUserEmail(email), new HttpHeaders(), HttpStatus.OK);
     }
 
     @RequestMapping(path = "/getAllFlights", method = RequestMethod.GET)

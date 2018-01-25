@@ -1,12 +1,12 @@
 package com.sabre.persistance;
 import com.sabre.domain.Flight;
+import com.sabre.persistance.database.SpringFlightsRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
-import org.springframework.context.annotation.Bean;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.Arrays;
@@ -26,16 +26,18 @@ public class DbSpringFlightsRepositoryTest {
 
     @Test
     public void save() {
+        long dbSize = springFlightsRepository.findAll().size();
         Flight f = new Flight();
         f.setAirportArrivalCode("AA");
         f.setUserEmail("AAA");
         f.setAirportDepartureCode("AA");
         springFlightsRepository.save(f);
-        assertEquals( springFlightsRepository.findAll().size(), 1 );
+        assertEquals( springFlightsRepository.findAll().size(), dbSize + 1 );
     }
 
     @Test
     public void findAll() {
+        long dbSize = springFlightsRepository.findAll().size();
         Flight f = new Flight();
         f.setAirportArrivalCode("AA");
         f.setUserEmail("AAA");
@@ -46,7 +48,7 @@ public class DbSpringFlightsRepositoryTest {
         f1.setAirportDepartureCode("AA");
         springFlightsRepository.save(f);
         springFlightsRepository.save(f1);
-        assertEquals( springFlightsRepository.findAll().size(), 2 );
+        assertEquals( springFlightsRepository.findAll().size(), dbSize + 2 );
     }
 
     @Test

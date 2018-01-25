@@ -1,6 +1,7 @@
-package com.sabre.persistance;
+package com.sabre.persistance.memory;
 
 import com.sabre.domain.Flight;
+import com.sabre.persistance.FlightsDatabaseRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;

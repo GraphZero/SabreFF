@@ -1,0 +1,82 @@
+@font-face {
+    font-family: myFirstFont;
+    src: url(http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300);
+}
+
+.center{
+    /** Center **/
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%); /* IE 9 */
+    -webkit-transform: translate(-50%, -50%); /* Chrome, Safari, Opera */
+}
+
+.form-style-8{
+    font-family: 'Open Sans Condensed', arial, sans;
+    width: 500px;
+    padding: 30px;
+    background: #FFFFFF;
+    margin: 50px auto;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.22);
+    -moz-box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.22);
+    -webkit-box-shadow:  0px 0px 15px rgba(0, 0, 0, 0.22);
+
+}
+
+.form-style-8 h2{
+    background: #4D4D4D;
+    font-family: 'Open Sans Condensed', sans-serif;
+    text-align: center;
+    color: whitesmoke;
+    font-size: 18px;
+    font-weight: 100;
+    padding: 20px;
+    margin: -30px -30px 30px -30px;
+}
+.form-style-8 input[type="text"],
+.form-style-8 input[type="date"],
+.form-style-8 input[type="datetime"],
+.form-style-8 input[type="email"],
+.form-style-8 input[type="number"],
+.form-style-8 input[type="search"],
+.form-style-8 input[type="time"],
+.form-style-8 input[type="url"],
+.form-style-8 input[type="password"],
+.form-style-8 textarea,
+.form-style-8 label,
+.form-style-8 select
+{
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    outline: none;
+    display: block;
+    width: 100%;
+    padding: 7px;
+    border: none;
+    border-bottom: 1px solid #ddd;
+    background: transparent;
+    margin-bottom: 10px;
+    font: 16px Arial, Helvetica, sans-serif;
+    height: 45px;
+}
+.form-style-8 textarea{
+    resize:none;
+    overflow: hidden;
+}
+.form-style-8 input[type="button"],
+.form-style-8 input[type="submit"]{
+    height:40px;
+    background: #4D4D4D;
+    border-radius:0;
+    font-size: 18px;
+    position:relative;
+    width: 150px;
+}
+
+#t{
+    padding-top: 10px;
+    margin-left: 70px;
+}

@@ -1,0 +1,15 @@
+<div class="form-style-8 ng-enter ng-enter-active center" ng-controller="AddUserCtrl">
+    <h2>Add User</h2>
+    <form>
+        <input type="text" name="first-name" placeholder="First Name" ng-model="firstName" />
+        <input type="text" name="last-name" placeholder="Last Name" ng-model="lastName"/>
+        <input type="email" name="email" placeholder="Email" ng-model="email"/>
+        <input type="number" name="initialMiles" placeholder="Miles" ng-model="initialMiles"/>
+        <input type="date" name="date" placeholder="Birth Date"ng-model="date" />
+        <input type="text" name="username" placeholder="Username" ng-model="username"/>
+        <input type="password" name="password" placeholder="Password" ng-model="password"/>
+        <a href="#!">
+            <input type="button" class="btn btn-primary" value="Add User" ng-click="addUser()"/>
+        </a>
+    </form>
+</div>

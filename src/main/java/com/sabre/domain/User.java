@@ -1,5 +1,7 @@
 package com.sabre.domain;
 
+import org.hibernate.annotations.Formula;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 
@@ -13,27 +15,42 @@ public class User {
     private String firstName;
     private String lastName;
     private String email;
-    private double miles;
+    private double initialMiles;
     private LocalDate birthDate;
-    private String nickname;
+    private String username;
+    private String password;
+
+    @Formula(value = "(SELECT SUM( F.miles) FROM Flights F WHERE F.user_email = email )")
+    private Long flightsMiles;
 
     public User() {
     }
 
-    public User(String firstName, String lastName, String email, double miles, LocalDate birthDate, String nickname) {
+    public User(String firstName, String lastName, String email, double initialMiles, LocalDate birthDate,
+                String username, String password) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
-        this.miles = miles;
+        this.initialMiles = initialMiles;
         this.birthDate = birthDate;
-        this.nickname = nickname;
+        this.username = username;
+        this.password = password;
     }
 
-    public User(String firstName, String lastName, String email, double miles) {
+    public User(String firstName, String lastName, String email, double initialMiles, LocalDate birthDate, String username) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
-        this.miles = miles;
+        this.initialMiles = initialMiles;
+        this.birthDate = birthDate;
+        this.username = username;
+    }
+
+    public User(String firstName, String lastName, String email, double initialMiles) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.initialMiles = initialMiles;
     }
 
     public String getFirstName() {
@@ -60,12 +77,12 @@ public class User {
         this.email = email;
     }
 
-    public double getMiles() {
-        return miles;
+    public double getInitialMiles() {
+        return initialMiles;
     }
 
-    public void setMiles(double miles) {
-        this.miles = miles;
+    public void setInitialMiles(double initialMiles) {
+        this.initialMiles = initialMiles;
     }
 
     public long getId() {
@@ -84,11 +101,24 @@ public class User {
         this.birthDate = birthDate;
     }
 
-    public String getNickname() {
-        return nickname;
+    public String getUsername() {
+        return username;
     }
 
-    public void setNickname(String nickname) {
-        this.nickname = nickname;
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public Long getFlightsMiles() {
+        return flightsMiles;
     }
 }
+

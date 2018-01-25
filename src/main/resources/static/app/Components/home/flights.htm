@@ -1,0 +1,13 @@
+<div id="FlightsBlock" >
+    <div class="row">
+        <div ng-repeat="flight in flights | limitTo : 32 track by $index ">
+            <div class="col-lg-3">
+                <div class="well">
+                    Miles: {{ flight.initialMiles }} <br>
+                    Airport Departure Code: {{ flight.airportDepartureCode }} <br>
+                    Airport Arrival Code: {{ flight.airportArrivalCode }} <br>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,5 +1,6 @@
 package com.sabre.services;
 
+import org.apache.http.client.methods.HttpPost;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -18,15 +19,15 @@ class GeoCodeServiceTest {
     @Test
     // Latitude and longitude for KRK Balice new Pair<>(50.077778, 19.784722)
     void testLattitude() {
-        assertTrue(geoCodeService.returnLattitudeAndLongitude("KRK" ).getKey() < 50.1
-                && geoCodeService.returnLattitudeAndLongitude("KRK" ).getKey() > 50.05);
+        assertTrue(geoCodeService.returnLattitudeAndLongitude("KRK" ).get().getKey() < 50.1
+                && geoCodeService.returnLattitudeAndLongitude("KRK" ).get().getKey() > 50.05);
     }
 
     @Test
     // Latitude and longitude for KRK Balice new Pair<>(50.077778, 19.784722)
     void testLongitude() {
-        assertTrue(geoCodeService.returnLattitudeAndLongitude("KRK" ).getValue() < 19.8
-                && geoCodeService.returnLattitudeAndLongitude("KRK" ).getValue() > 19.7);
+        assertTrue(geoCodeService.returnLattitudeAndLongitude("KRK" ).get().getValue() < 19.8
+                && geoCodeService.returnLattitudeAndLongitude("KRK" ).get().getValue() > 19.7);
     }
 
     @Test
@@ -49,9 +50,25 @@ class GeoCodeServiceTest {
         assertNotNull( geoCodeService.getResponseFromSabreApi("AMM") );
     }
 
+    @Test
+    void shouldAddAuthorizationHeader(){
+        HttpPost httpPost = new HttpPost();
+        geoCodeService.setRequestHeaders(httpPost);
+        assertTrue( httpPost.containsHeader("authorization") );
+    }
+
+    @Test
+    void shouldAddContentTypeHeader(){
+        HttpPost httpPost = new HttpPost();
+        geoCodeService.setRequestHeaders(httpPost);
+        assertTrue( httpPost.containsHeader("Content-Type") );
+    }
+
     @NotNull
     private String getResponse(){
         return "[{GeoCodeRS={status=ONE_PLACE_FOUND, Place=[{confidenceFactor=ADDRESS_QUALITY, latitude=50.078056, longitude=19.786111, Name=Krakow, Category=AIR, Id=KRK, City=Krakow, Country=PL}]}}]";
     }
+
+
 
 }
