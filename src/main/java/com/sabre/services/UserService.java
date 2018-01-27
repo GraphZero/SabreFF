@@ -66,7 +66,7 @@ public class UserService {
 
     public boolean validateUser(final String email, final String name){
         return Optional.ofNullable(userDatabaseRepository.findByEmail(email))
-                .map( x -> x.getFirstName().equals(name))
+                .map( x -> x.getFirstName().trim().equalsIgnoreCase(name.trim()))
                 .orElse(false);
     }
 

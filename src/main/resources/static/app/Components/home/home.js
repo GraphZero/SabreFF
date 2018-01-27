@@ -8,10 +8,11 @@ app.config(function($routeProvider) {
             templateUrl : "/app/components/login/loginPage.htm"
         })
         .when("/profilePage", {
-            templateUrl : "/app/components/home/profilePage.htm"
+            templateUrl : "/app/components/home/profilePage.htm",
+            controller  : 'LoginController'
         })
         .when("/flights", {
-            templateUrl : "/app/components/home/flights.htm"
+            templateUrl : "/app/components/flights/flights.htm"
         })
         .when("/adminPage", {
             templateUrl : "/app/components/adminPanel/adminPage.htm"

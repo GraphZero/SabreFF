@@ -1,14 +1,14 @@
-<div class="form-style-8 ng-enter ng-enter-active center">
+<div class="form-style-8 ng-enter ng-enter-active center" ng-controller="LoginController">
     <h2>Hello to the frequent flier app. </br> Please login to continue.</h2>
     <form>
-        <input type="email" name="email" placeholder="Email" />
-        <input type="password" name="password" placeholder="Password" />
+        <input ng-model="email" type="email" name="email" placeholder="Email" required />
+        <input  ng-model="password" type="password" name="password" placeholder="Password" />
         <div class="row" id="t">
-            <a href="#!profilePage">
-                    <input type="button" class="btn btn-primary" value="Login" />
+            <a>
+                <input  type="button" class="btn btn-primary" value="Login" ng-click="login()" />
             </a>
             <a href="#!adminPage">
-                    <input type="button" class="btn btn-primary" value="Login As Admin" />
+                <input type="button" class="btn btn-primary" value="Login As Admin" />
             </a>
         </div>
     </form>

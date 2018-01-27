@@ -2,7 +2,10 @@ package com.sabre.controllers;
 
 import com.sabre.domain.User;
 import com.sabre.persistance.UserDatabaseRepository;
+import com.sabre.services.GeoCodeService;
 import com.sabre.services.UserService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpHeaders;
@@ -15,6 +18,7 @@ import java.util.List;
 @RestController
 public class UserController {
     private final UserService userService;
+    private static Logger logger = LogManager.getLogger(UserController.class);
 
     @Autowired
     public UserController(UserService userService ) {
@@ -41,13 +45,17 @@ public class UserController {
         return new ResponseEntity<>( "User deleted", responseHeaders, HttpStatus.ACCEPTED);
     }
 
-    @RequestMapping( path = "/login", method = RequestMethod.POST)
-    public ResponseEntity<Boolean> login(@RequestParam() final String email,
-                                        @RequestParam() final String name){
+    @RequestMapping( path = "/testLogin/{email:.+}", method = RequestMethod.POST)
+    public ResponseEntity<String> login(@PathVariable("email") final String email,
+                                        @RequestParam("name") final String name){
+        logger.info("Attempt to log as " + email);
+        HttpHeaders responseHeaders = new HttpHeaders();
         if ( userService.validateUser(email, name) ){
-            return new ResponseEntity<>( true, HttpStatus.OK);
+            logger.info("Successful login " + email);
+            return new ResponseEntity<>( "{ \"data\": \"Successful login\"}", responseHeaders, HttpStatus.OK);
         } else{
-            return new ResponseEntity<>( false, HttpStatus.FORBIDDEN);
+            logger.info("Unsuccessful login " + email);
+            return new ResponseEntity<>( "{ \"data:\": \"Bad credentials\"}", responseHeaders, HttpStatus.FORBIDDEN);
         }
     }
 

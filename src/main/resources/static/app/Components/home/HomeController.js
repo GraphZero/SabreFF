@@ -1,6 +1,6 @@
 'use strict'
 
-angular.module('home').controller('FlightsController', function($scope, $http, $location, $window, FlightsService){
+angular.module('home').controller('HomeController', function($scope, $http, $location, $window, FlightsService){
 
     $scope.doShowFlights = function(){
         if ( $scope.showFlights ){
