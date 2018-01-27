@@ -41,5 +41,14 @@ public class UserController {
         return new ResponseEntity<>( "User deleted", responseHeaders, HttpStatus.ACCEPTED);
     }
 
+    @RequestMapping( path = "/login", method = RequestMethod.POST)
+    public ResponseEntity<Boolean> login(@RequestParam() final String email,
+                                        @RequestParam() final String name){
+        if ( userService.validateUser(email, name) ){
+            return new ResponseEntity<>( true, HttpStatus.OK);
+        } else{
+            return new ResponseEntity<>( false, HttpStatus.FORBIDDEN);
+        }
+    }
 
 }

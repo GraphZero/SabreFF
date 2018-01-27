@@ -16,7 +16,8 @@ import java.io.IOException;
 import java.io.Reader;
 
 /**
- * Used to parse data from provided CSV data file.
+ * Used to parse data from provided CSV data file. Sabre /geocode service works REALLY slow, so does this service.
+ * Sadly I can't do anything to meaningfully decrease computing time.
  */
 
 @Service
@@ -41,6 +42,11 @@ public class PersistDataFromCsvFileService {
         this.calculateDistancesBetweenAirportsService = calculateDistancesBetweenAirportsService;
     }
 
+    /**
+     * Saves data from csv file to local db. Uses {@link com.sabre.services.CalculateDistancesBetweenAirportsService}
+     * to get distance between two airports.
+     * @throws IOException if there is no csv file
+     */
     public void cacheDataFromCsvFile() throws IOException {
         logger.info("Parsing data from file.");
         Resource csvResource = resourceLoader.getResource("classpath:static/csv/usersWithFlights.csv");

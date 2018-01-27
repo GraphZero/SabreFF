@@ -11,6 +11,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -58,6 +59,18 @@ public class FlightsController {
                 returnTicket, departureFlightDate, returnFlightlDate);
         HttpHeaders responseHeaders = new HttpHeaders();
         return new ResponseEntity<>("Successfully added flight!", responseHeaders, HttpStatus.OK);
+    }
+
+    @RequestMapping(path = "/saveDataFromCsv", method = RequestMethod.POST)
+    public ResponseEntity<String> postIncompleteFlight() {
+        HttpHeaders responseHeaders = new HttpHeaders();
+        try {
+            persistDataFromCsvFileService.cacheDataFromCsvFile();
+            return new ResponseEntity<>("Successfully cached flights and users!", responseHeaders, HttpStatus.OK);
+        } catch (IOException e) {
+            return new ResponseEntity<>("Couldn't cache data, cant find csv file!", responseHeaders, HttpStatus.NOT_MODIFIED);
+        }
+
     }
 
 }
