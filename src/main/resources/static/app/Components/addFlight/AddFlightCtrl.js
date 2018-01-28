@@ -1,6 +1,6 @@
 'use strict'
 
-angular.module('home').controller('AddFlightCtrl', function($scope, $http){
+angular.module('home').controller('AddFlightCtrl', function($scope, $http, $location, DataService){
 
     $scope.addFlight = function(){
         var absUrl = "/postFlight/";
@@ -22,12 +22,17 @@ angular.module('home').controller('AddFlightCtrl', function($scope, $http){
         };
         return $http.post( absUrl, flight, config)
             .then(
-                function(response){
-                    console.log("Successfully posted flight.");
-                    console.log(response.data);
+                function(){
+                    DataService
+                        .getUserData( DataService.getUser().email , $http)
+                        .then(function successCallback() {
+                            console.log("Successfully posted flight.");
+                            $location.path( '/profilePage' );
+                        }, function errorCallback() {
+                        });
                 },
                 function(response){
-                    console.log( "|" + response.data);
+                    console.log( response);
                     console.log("Couldnt posted flight.");
                 });
     }
