@@ -36,7 +36,8 @@ Należy dostarczyć token uwierzytelniający zapytania do Sabre Api.
 = *3. Uruchomienie Aplikacji*
 
 Aplikację uruchamia się z poziomu IDE. Należy pobrać wszyskie zależności przez _Mavena_
- i uruchomić metodę _main_ w klasie _FrequentflyerApplication_.
+ i uruchomić metodę _main_ w klasie _FrequentflyerApplication_. Aplikacja wystartuje pod adresem
+ _http://localhost:8090/#!/_
 
 .FrequentflyerApplication.java
 [source, java]
