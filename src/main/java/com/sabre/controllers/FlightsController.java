@@ -40,10 +40,10 @@ public class FlightsController {
     }
 
     @RequestMapping(path = "/postFlight", method = RequestMethod.POST)
-    public ResponseEntity<String> postFlight(@RequestBody final Flight flight) {
+    public ResponseEntity<Void> postFlight(@RequestBody final Flight flight) {
         flightsService.persistFlight(flight);
         HttpHeaders responseHeaders = new HttpHeaders();
-        return new ResponseEntity<>("Successfully added flight!", responseHeaders, HttpStatus.OK);
+        return new ResponseEntity<>( responseHeaders, HttpStatus.OK);
     }
 
     @RequestMapping(path = "/postIncompleteFlight", method = RequestMethod.POST)

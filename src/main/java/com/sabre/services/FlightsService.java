@@ -16,14 +16,17 @@ import java.util.List;
 
 @Service
 public class FlightsService {
-    private FlightsDatabaseRepository flightsDatabaseRepository;
-    private CalculateDistancesBetweenAirportsService calculateDistancesBetweenAirportsService;
+    private final FlightsDatabaseRepository flightsDatabaseRepository;
+    private final CalculateDistancesBetweenAirportsService calculateDistancesBetweenAirportsService;
+    private final UserService userService;
 
     @Autowired
     public FlightsService(@Qualifier("dbSpringFlightsRepository") FlightsDatabaseRepository flightsDatabaseRepository,
-                          CalculateDistancesBetweenAirportsService calculateDistancesBetweenAirportsService) {
+                          CalculateDistancesBetweenAirportsService calculateDistancesBetweenAirportsService,
+                          UserService userService) {
         this.flightsDatabaseRepository = flightsDatabaseRepository;
         this.calculateDistancesBetweenAirportsService = calculateDistancesBetweenAirportsService;
+        this.userService = userService;
     }
 
     /**
@@ -31,6 +34,7 @@ public class FlightsService {
      */
     public void persistFlight(Flight flight) {
         flightsDatabaseRepository.save(flight);
+        userService.addMiles( (long) flight.getMiles(), flight.getUserEmail());
     }
 
     /**
@@ -39,9 +43,11 @@ public class FlightsService {
     public void persistFlight(String userEmail, String airportDepartureCode, String airportArrivalCode,
                               String airlineCode, FlightClass flightClass, boolean returnTicket,
                               LocalDate departureFlightDate, LocalDate returnFlightlDate) {
+        double distance = calculateDistancesBetweenAirportsService.calculateDistance(airportDepartureCode, airportArrivalCode);
         flightsDatabaseRepository.save(new Flight(userEmail, airportDepartureCode, airportArrivalCode, airlineCode,
-                calculateDistancesBetweenAirportsService.calculateDistance(airportDepartureCode, airportArrivalCode),
+                distance,
                 flightClass, returnTicket, departureFlightDate, returnFlightlDate));
+        userService.addMiles( (long) distance, userEmail);
     }
 
     public List<Flight> getAllFlights() {
