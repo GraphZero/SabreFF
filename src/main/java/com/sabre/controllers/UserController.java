@@ -31,6 +31,31 @@ public class UserController {
         return new ResponseEntity<>( userService.getAllUsers(), responseHeaders, HttpStatus.OK);
     }
 
+    @RequestMapping( path = "/testLogin/{email:.+}", method = RequestMethod.GET)
+    public ResponseEntity<User> login(@PathVariable("email") final String email,
+                                      @RequestParam("name") final String name){
+        logger.info("Attempt to log as " + email);
+        HttpHeaders responseHeaders = new HttpHeaders();
+        if ( userService.validateUser(email, name) ){
+            logger.info("Successful login " + email);
+            return new ResponseEntity<>( userService.getUserByEmail(email), responseHeaders, HttpStatus.OK);
+        } else{
+            logger.info("Unsuccessful login " + email);
+            return new ResponseEntity<>( null, responseHeaders, HttpStatus.FORBIDDEN);
+        }
+    }
+
+    @RequestMapping( path = "/getUser/{email:.+}")
+    public ResponseEntity<User> getUserByEmail(@PathVariable("email") final String email){
+        final HttpHeaders responseHeaders = new HttpHeaders();
+        final User user =  userService.getUserByEmail(email);
+        if ( user != null ){
+            return new ResponseEntity<>( user, responseHeaders, HttpStatus.OK);
+        } else{
+            return new ResponseEntity<>( user, responseHeaders, HttpStatus.FORBIDDEN);
+        }
+    }
+
     @RequestMapping( path = "/addUser", method = RequestMethod.POST)
     public ResponseEntity<User> addUser(@RequestBody() final User user){
         userService.addUser(user);
@@ -45,18 +70,7 @@ public class UserController {
         return new ResponseEntity<>( "User deleted", responseHeaders, HttpStatus.ACCEPTED);
     }
 
-    @RequestMapping( path = "/testLogin/{email:.+}", method = RequestMethod.POST)
-    public ResponseEntity<String> login(@PathVariable("email") final String email,
-                                        @RequestParam("name") final String name){
-        logger.info("Attempt to log as " + email);
-        HttpHeaders responseHeaders = new HttpHeaders();
-        if ( userService.validateUser(email, name) ){
-            logger.info("Successful login " + email);
-            return new ResponseEntity<>( "{ \"data\": \"Successful login\"}", responseHeaders, HttpStatus.OK);
-        } else{
-            logger.info("Unsuccessful login " + email);
-            return new ResponseEntity<>( "{ \"data:\": \"Bad credentials\"}", responseHeaders, HttpStatus.FORBIDDEN);
-        }
-    }
+
+
 
 }

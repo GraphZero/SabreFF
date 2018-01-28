@@ -1,24 +1,23 @@
 'use strict'
 
 
-angular.module('shared').service( 'LoginService', function() {
+angular.module('home').service( 'DataService', function() {
     var user;
 
-    this.login = function( email, name, $http, $q ) {
-        var absUrl = "/testLogin/" + email + "?name=" + name ;
-        var defer = $q.defer();
+    this.getUserData = function(email, $http){
+        var absUrl = "/getUser/" + email;
         return $http( {
             method: 'GET',
             url: absUrl,
             accept: "application/json"
         }).then(
             function successCallback(response) {
+                console.log(response.data);
                 user = response.data;
-                defer.resolve(response);
-                return defer.promise;
-        }, function errorCallback(response) {
                 return response;
-        });
+            }, function errorCallback() {
+                console.log("What the hell...?");
+            });
     };
 
     this.getUser = function(){
