@@ -2,7 +2,10 @@ package com.sabre.controllers;
 
 import com.sabre.domain.User;
 import com.sabre.persistance.UserDatabaseRepository;
+import com.sabre.services.GeoCodeService;
 import com.sabre.services.UserService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpHeaders;
@@ -14,7 +17,8 @@ import java.util.List;
 
 @RestController
 public class UserController {
-    private UserService userService;
+    private final UserService userService;
+    private static Logger logger = LogManager.getLogger(UserController.class);
 
     @Autowired
     public UserController(UserService userService ) {
@@ -25,6 +29,31 @@ public class UserController {
     public ResponseEntity<List<User>> getAllUsers(){
         HttpHeaders responseHeaders = new HttpHeaders();
         return new ResponseEntity<>( userService.getAllUsers(), responseHeaders, HttpStatus.OK);
+    }
+
+    @RequestMapping( path = "/testLogin/{email:.+}", method = RequestMethod.GET)
+    public ResponseEntity<User> login(@PathVariable("email") final String email,
+                                      @RequestParam("name") final String name){
+        logger.info("Attempt to log as " + email);
+        HttpHeaders responseHeaders = new HttpHeaders();
+        if ( userService.validateUser(email, name) ){
+            logger.info("Successful login " + email);
+            return new ResponseEntity<>( userService.getUserByEmail(email), responseHeaders, HttpStatus.OK);
+        } else{
+            logger.info("Unsuccessful login " + email);
+            return new ResponseEntity<>( null, responseHeaders, HttpStatus.FORBIDDEN);
+        }
+    }
+
+    @RequestMapping( path = "/getUser/{email:.+}")
+    public ResponseEntity<User> getUserByEmail(@PathVariable("email") final String email){
+        final HttpHeaders responseHeaders = new HttpHeaders();
+        final User user =  userService.getUserByEmail(email);
+        if ( user != null ){
+            return new ResponseEntity<>( user, responseHeaders, HttpStatus.OK);
+        } else{
+            return new ResponseEntity<>( user, responseHeaders, HttpStatus.FORBIDDEN);
+        }
     }
 
     @RequestMapping( path = "/addUser", method = RequestMethod.POST)
@@ -40,6 +69,8 @@ public class UserController {
         HttpHeaders responseHeaders = new HttpHeaders();
         return new ResponseEntity<>( "User deleted", responseHeaders, HttpStatus.ACCEPTED);
     }
+
+
 
 
 }

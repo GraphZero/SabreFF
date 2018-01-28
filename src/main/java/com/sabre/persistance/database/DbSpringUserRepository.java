@@ -47,6 +47,10 @@ public class DbSpringUserRepository implements UserDatabaseRepository {
 
     @Override
     public double addMiles(double miles, String userEmail) {
-        return 0;
+        User userToUpdate = springUserRepository.findByEmail(userEmail);
+        double distance = userToUpdate.getInitialMiles();
+        userToUpdate.setInitialMiles( distance+ miles);
+        springUserRepository.save(userToUpdate);
+        return distance + miles;
     }
 }

@@ -11,13 +11,14 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
 
 @RestController
 public class FlightsController {
-    FlightsService flightsService;
-    PersistDataFromCsvFileService persistDataFromCsvFileService;
+    private final FlightsService flightsService;
+    private final PersistDataFromCsvFileService persistDataFromCsvFileService;
 
     @Autowired
     public FlightsController(FlightsService flightsService,
@@ -39,25 +40,37 @@ public class FlightsController {
     }
 
     @RequestMapping(path = "/postFlight", method = RequestMethod.POST)
-    public ResponseEntity<String> postFlight(@RequestBody final Flight flight) {
+    public ResponseEntity<Void> postFlight(@RequestBody final Flight flight) {
         flightsService.persistFlight(flight);
         HttpHeaders responseHeaders = new HttpHeaders();
-        return new ResponseEntity<>("Successfully added flight!", responseHeaders, HttpStatus.OK);
+        return new ResponseEntity<>( responseHeaders, HttpStatus.OK);
     }
 
-    @RequestMapping(path = "/postIncompleteFlight", method = RequestMethod.POST)
-    public ResponseEntity<String> postIncompleteFlight(@RequestParam("userEmail") final String userEmail,
+    @RequestMapping(path = "/postIncompleteFlight/{userEmail:.+}", method = RequestMethod.POST)
+    public ResponseEntity<Void> postIncompleteFlight(@PathVariable("userEmail") final String userEmail,
                                                        @RequestParam("airportDepartureCode") final String airportDepartureCode,
                                                        @RequestParam("airportArrivalCode") final String airportArrivalCode,
                                                        @RequestParam("airlineCode") final String airlineCode,
                                                        @RequestParam("flightClass") final FlightClass flightClass,
                                                        @RequestParam("returnTicket") final boolean returnTicket,
-                                                       @RequestParam("departureFlightDate") final LocalDate departureFlightDate,
-                                                       @RequestParam("returnFlightlDate") final LocalDate returnFlightlDate) {
+                                                       @RequestParam("departureFlightDate") final long departureFlightDate,
+                                                       @RequestParam("returnFlightDate") final long returnFlightlDate) {
         flightsService.persistFlight(userEmail, airportDepartureCode, airportArrivalCode, airlineCode, flightClass,
                 returnTicket, departureFlightDate, returnFlightlDate);
         HttpHeaders responseHeaders = new HttpHeaders();
-        return new ResponseEntity<>("Successfully added flight!", responseHeaders, HttpStatus.OK);
+        return new ResponseEntity<>(responseHeaders, HttpStatus.OK);
+    }
+
+    @RequestMapping(path = "/saveDataFromCsv", method = RequestMethod.POST)
+    public ResponseEntity<String> postIncompleteFlight() {
+        HttpHeaders responseHeaders = new HttpHeaders();
+        try {
+            persistDataFromCsvFileService.cacheDataFromCsvFile();
+            return new ResponseEntity<>("Successfully cached flights and users!", responseHeaders, HttpStatus.OK);
+        } catch (IOException e) {
+            return new ResponseEntity<>("Couldn't cache data, cant find csv file!", responseHeaders, HttpStatus.NOT_MODIFIED);
+        }
+
     }
 
 }

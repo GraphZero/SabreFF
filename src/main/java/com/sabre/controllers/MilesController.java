@@ -11,20 +11,20 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class MilesController {
-    UserService userService;
+    private final UserService userService;
 
     @Autowired
     public MilesController(UserService userService) {
         this.userService = userService;
     }
 
-    @RequestMapping( path = "/getMiles/{userEmail}", method = RequestMethod.GET)
+    @RequestMapping( path = "/getMiles/{userEmail:.+}", method = RequestMethod.GET)
     public ResponseEntity<Double> returnCurrentMiles(@PathVariable("userId") final String userEmail ){
         HttpHeaders responseHeaders = new HttpHeaders();
         return new ResponseEntity<>( userService.getMilesByUserId(userEmail), responseHeaders, HttpStatus.OK);
     }
 
-    @RequestMapping( path = "/getMissingMiles/{userEmail}", method = RequestMethod.GET)
+    @RequestMapping( path = "/getMissingMiles/{userEmail:.+}", method = RequestMethod.GET)
     public ResponseEntity<Double> getMissingMiles(@PathVariable("userId") final String userEmail){
         HttpHeaders responseHeaders = new HttpHeaders();
         return new ResponseEntity<>( userService.getMissingMiles(userEmail), responseHeaders, HttpStatus.OK);

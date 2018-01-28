@@ -1,11 +1,11 @@
 'use strict'
 
-angular.module('home').controller('AddFlightCtrl', function($scope, $http){
+angular.module('home').controller('AddFlightCtrl', function($scope, $http, $location, DataService){
 
-    $scope.addFlight = function(){
+    function  postCompleteFlight(){
         var absUrl = "/postFlight/";
         var flight = {
-            userEmail: "noah.williams@travel-sabre.com",
+            userEmail: DataService.getUser().email,
             airportDepartureCode: $scope.airportDepartureCode,
             airportArrivalCode: $scope.airportArrivalCode,
             airlineCode: $scope.airlineCode,
@@ -22,15 +22,55 @@ angular.module('home').controller('AddFlightCtrl', function($scope, $http){
         };
         return $http.post( absUrl, flight, config)
             .then(
-                function(response){
-                    console.log("Successfully posted flight.");
-                    console.log(response.data);
+                function(){
+                    DataService
+                        .getUserData( DataService.getUser().email , $http)
+                        .then(function successCallback() {
+                            console.log("Successfully posted flight.");
+                            $location.path( '/profilePage' );
+                        }, function errorCallback() {
+                        });
                 },
                 function(response){
-                    console.log( "|" + response.data);
+                    console.log( response);
                     console.log("Couldnt posted flight.");
                 });
-    }
+    };
 
+    function  postInCompleteFlight(){
+        var absUrl = "/postIncompleteFlight/" + DataService.getUser().email
+            + "?airportDepartureCode=" + $scope.airportDepartureCode
+            + "&airportArrivalCode=" + $scope.airportArrivalCode
+            + "&airlineCode=" + $scope.airlineCode
+            + "&flightClass=" + $scope.flightClass
+            + "&returnTicket=" + $scope.returnTicket
+            + "&departureFlightDate=" + $scope.departureFlightDate.getTime()
+            + "&returnFlightDate=" + $scope.returnFlightDate.getTime();
+        console.log(absUrl);
+        return $http.post( absUrl)
+            .then(
+                function(){
+                    DataService
+                        .getUserData( DataService.getUser().email , $http)
+                        .then(function successCallback() {
+                            console.log("Successfully posted flight.");
+                            $location.path( '/profilePage' );
+                        }, function errorCallback() {
+                        });
+                },
+                function(response){
+                    console.log( response);
+                    console.log("Couldnt posted flight.");
+                });
+    };
 
+    $scope.addFlight = function(){
+        if ( $scope.miles ){
+            postCompleteFlight();
+        } else{
+            console.log("Incomplete");
+            postInCompleteFlight();
+        }
+
+    };
 });

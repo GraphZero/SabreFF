@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Nullable;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Controls communication with DAO.
@@ -61,6 +62,12 @@ public class UserService {
 
     public List<User> getAllUsers(){
         return userDatabaseRepository.findAll();
+    }
+
+    public boolean validateUser(final String email, final String name){
+        return Optional.ofNullable(userDatabaseRepository.findByEmail(email))
+                .map( x -> x.getFirstName().trim().equalsIgnoreCase(name.trim()))
+                .orElse(false);
     }
 
     @Nullable

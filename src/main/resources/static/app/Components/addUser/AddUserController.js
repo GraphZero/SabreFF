@@ -8,7 +8,7 @@ angular.module('home').controller('AddUserCtrl', function($scope, $http){
             firstName: $scope.firstName,
             lastName: $scope.lastName,
             email: $scope.email,
-            miles: $scope.miles,
+            initialMiles: $scope.initialMiles,
             birthDate: $scope.birthDate,
             username: $scope.username,
             password: $scope.password
