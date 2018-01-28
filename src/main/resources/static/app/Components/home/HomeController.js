@@ -3,11 +3,25 @@
 angular.module('home').controller('HomeController', function($scope, $http, $location, $window, $q, $timeout,
                                                              FlightsService, DataService, LoginService){
 
+    var nextLevel = 10000;
 
+    $scope.nextLevel = nextLevel;
 
     var updateData = function() {
         if (  DataService.getUser() ){
-            $scope.name = DataService.getUser().firstName;
+            var user = DataService.getUser();
+            var neededMiles = ((Math.floor(user.initialMiles/ nextLevel) + 1 ) * nextLevel) - user.initialMiles;
+            var percent = (nextLevel - neededMiles) / 100;
+            $scope.name = user.firstName;
+            $scope.miles = user.initialMiles;
+            $scope.level = Math.floor(user.initialMiles/ nextLevel);
+            $scope.neededMiles = neededMiles;
+            $scope.myStyle = {
+                "width": percent + "%"
+            };
+            FlightsService.getFlightsByUserEmail( DataService.getUser().email, $http).then( function(flights) {
+                $scope.flights = flights;
+            });
         } else{
             $timeout(updateData, 1000);
         }
@@ -38,12 +52,6 @@ angular.module('home').controller('HomeController', function($scope, $http, $loc
             $scope.showFlights = true;
         }
     };
-
-    $scope.getFlights = function(){
-        FlightsService.getFlightsByUserEmail( DataService.getUser().email, $http).then( function(flights) {
-            $scope.flights = flights;
-        });
-    }
 
 
 });

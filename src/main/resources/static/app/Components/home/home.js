@@ -13,7 +13,8 @@ app.config(function($routeProvider) {
             controller: 'HomeController'
         })
         .when("/flights", {
-            templateUrl : "/app/components/flights/flights.htm"
+            templateUrl : "/app/components/flights/flights.htm",
+            controller: 'HomeController'
         })
         .when("/adminPage", {
             templateUrl : "/app/components/adminPanel/adminPage.htm"
