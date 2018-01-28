@@ -1,9 +1,12 @@
 package com.sabre.functional;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
 
 public class TestBase {
     static WebDriver driver;
@@ -14,12 +17,16 @@ public class TestBase {
         driver = new ChromeDriver();
     }
 
-    public void waitForElementVisible(){
-
+    @AfterMethod
+    public void tearDown(){
+        driver.close();
     }
 
-    public void tearDown(){
-
+    public void waitForElementVisible(By... by) {
+        WebDriverWait wait = new WebDriverWait(driver, 20);
+        for (By element : by) {
+            wait.until(ExpectedConditions.visibilityOfElementLocated(element));
+        }
     }
 
 }
