@@ -24,6 +24,7 @@ div.ng-enter-active {
 #app-header{
     background-color: #4D4D4D;
     color: whitesmoke;
+    border-radius:0;
 }
 
 .zero-radius{
@@ -32,6 +33,7 @@ div.ng-enter-active {
 
 .custom{
     background-color: #4D4D4D;
+    border-radius:0;
 }
 
 .well{
@@ -57,12 +59,14 @@ span.glyphicon-star-empty {
 .wide-button{
     width: 100%;
     background-color: #4D4D4D;
-    border-color: black;
+    border-width: 0px;
+    border-radius:0;
 }
 
 .wide-button:hover{
     background-color: whitesmoke;
     color: #4D4D4D;
+
 }
 
 #checkbox{
@@ -71,4 +75,5 @@ span.glyphicon-star-empty {
     background:white;
     border-radius:5px;
     border:2px solid #555;
+    border-radius:0;
 }
