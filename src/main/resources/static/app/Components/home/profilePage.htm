@@ -25,6 +25,7 @@
                         <div>
                             <h2 >
                                 You are at level {{level}}, you need {{neededMiles}} more miles to upgrade your level!
+
                             </h2>
                         </div>
                     </div>
@@ -37,7 +38,7 @@
             <div class="progress col-lg-12 "  id="prog">
                 <div id="prog2" class="progress-bar progress-bar-striped active custom" role="progressbar"
                      ng-style="myStyle" aria-valuemin="0" aria-valuemax="100" style="width:80%">
-                    <p> {{ (nextLevel - neededMiles) % 100 }}%</p>
+                    <p> {{ (nextLevel - neededMiles) / 100 }}%</p>
                 </div>
             </div>
 
@@ -45,7 +46,7 @@
     </div>
     <div class="row">
         <div class="col-lg-4">
-            <a href="#!addFlight">
+            <a href="#!addFlight" id="addFlight">
                 <button type="button" class="btn btn-primary btn-lg wide-button">
                     <span class="glyphicon glyphicon-send"></span> Add a flight.</button>
             </a>

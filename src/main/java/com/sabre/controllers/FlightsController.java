@@ -46,19 +46,19 @@ public class FlightsController {
         return new ResponseEntity<>( responseHeaders, HttpStatus.OK);
     }
 
-    @RequestMapping(path = "/postIncompleteFlight", method = RequestMethod.POST)
-    public ResponseEntity<String> postIncompleteFlight(@RequestParam("userEmail") final String userEmail,
+    @RequestMapping(path = "/postIncompleteFlight/{userEmail:.+}", method = RequestMethod.POST)
+    public ResponseEntity<Void> postIncompleteFlight(@PathVariable("userEmail") final String userEmail,
                                                        @RequestParam("airportDepartureCode") final String airportDepartureCode,
                                                        @RequestParam("airportArrivalCode") final String airportArrivalCode,
                                                        @RequestParam("airlineCode") final String airlineCode,
                                                        @RequestParam("flightClass") final FlightClass flightClass,
                                                        @RequestParam("returnTicket") final boolean returnTicket,
-                                                       @RequestParam("departureFlightDate") final LocalDate departureFlightDate,
-                                                       @RequestParam("returnFlightlDate") final LocalDate returnFlightlDate) {
+                                                       @RequestParam("departureFlightDate") final long departureFlightDate,
+                                                       @RequestParam("returnFlightDate") final long returnFlightlDate) {
         flightsService.persistFlight(userEmail, airportDepartureCode, airportArrivalCode, airlineCode, flightClass,
                 returnTicket, departureFlightDate, returnFlightlDate);
         HttpHeaders responseHeaders = new HttpHeaders();
-        return new ResponseEntity<>("Successfully added flight!", responseHeaders, HttpStatus.OK);
+        return new ResponseEntity<>(responseHeaders, HttpStatus.OK);
     }
 
     @RequestMapping(path = "/saveDataFromCsv", method = RequestMethod.POST)

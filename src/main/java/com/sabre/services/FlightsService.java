@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.List;
 
 /**
@@ -42,11 +44,13 @@ public class FlightsService {
      */
     public void persistFlight(String userEmail, String airportDepartureCode, String airportArrivalCode,
                               String airlineCode, FlightClass flightClass, boolean returnTicket,
-                              LocalDate departureFlightDate, LocalDate returnFlightlDate) {
+                              long departureFlightDate, long returnFlightlDate) {
         double distance = calculateDistancesBetweenAirportsService.calculateDistance(airportDepartureCode, airportArrivalCode);
         flightsDatabaseRepository.save(new Flight(userEmail, airportDepartureCode, airportArrivalCode, airlineCode,
                 distance,
-                flightClass, returnTicket, departureFlightDate, returnFlightlDate));
+                flightClass, returnTicket,
+                Instant.ofEpochMilli(departureFlightDate).atZone(ZoneId.systemDefault()).toLocalDate(),
+                Instant.ofEpochMilli(returnFlightlDate).atZone(ZoneId.systemDefault()).toLocalDate()));
         userService.addMiles( (long) distance, userEmail);
     }
 
