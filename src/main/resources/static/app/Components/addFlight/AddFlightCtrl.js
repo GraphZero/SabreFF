@@ -5,7 +5,7 @@ angular.module('home').controller('AddFlightCtrl', function($scope, $http, $loca
     $scope.addFlight = function(){
         var absUrl = "/postFlight/";
         var flight = {
-            userEmail: "noah.williams@travel-sabre.com",
+            userEmail: DataService.getUser().email,
             airportDepartureCode: $scope.airportDepartureCode,
             airportArrivalCode: $scope.airportArrivalCode,
             airlineCode: $scope.airlineCode,
