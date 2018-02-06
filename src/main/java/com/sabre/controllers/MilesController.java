@@ -24,12 +24,6 @@ public class MilesController {
         return new ResponseEntity<>( userService.getMilesByUserId(userEmail), responseHeaders, HttpStatus.OK);
     }
 
-    @RequestMapping( path = "/getMissingMiles/{userEmail:.+}", method = RequestMethod.GET)
-    public ResponseEntity<Double> getMissingMiles(@PathVariable("userId") final String userEmail){
-        HttpHeaders responseHeaders = new HttpHeaders();
-        return new ResponseEntity<>( userService.getMissingMiles(userEmail), responseHeaders, HttpStatus.OK);
-    }
-
     @RequestMapping( path = "/addMiles", method = RequestMethod.POST)
     public ResponseEntity<String> addMilesForUser(@RequestParam("userId") final String userEmail, @RequestParam("miles") long miles ){
         userService.addMiles(miles, userEmail);

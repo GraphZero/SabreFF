@@ -18,14 +18,12 @@ import java.util.Optional;
 public class UserService {
     private UserDatabaseRepository userDatabaseRepository;
     private CalculateDistancesBetweenAirportsService calculateDistancesBetweenAirportsService;
-    long milesToLvlUp;
 
     @Autowired
     public UserService(@Qualifier("dbSpringUserRepository") UserDatabaseRepository userDatabaseRepository,
                        CalculateDistancesBetweenAirportsService calculateDistancesBetweenAirportsService) {
         this.calculateDistancesBetweenAirportsService = calculateDistancesBetweenAirportsService;
         this.userDatabaseRepository = userDatabaseRepository;
-        milesToLvlUp = 10000;
     }
 
     public double getMilesByUserId(final String userEmail) {
@@ -42,10 +40,6 @@ public class UserService {
 
     public void addMiles(final long miles, final String userEmail) {
         userDatabaseRepository.addMiles(miles, userEmail);
-    }
-
-    public double getMissingMiles(final String userEmail) {
-        return milesToLvlUp - userDatabaseRepository.findMilesByEmail(userEmail);
     }
 
     public void deleteUser(final long userId) {
@@ -65,14 +59,13 @@ public class UserService {
     }
 
     public boolean validateUser(final String email, final String name){
-        return Optional.ofNullable(userDatabaseRepository.findByEmail(email))
+        return userDatabaseRepository.findByEmail(email)
                 .map( x -> x.getFirstName().trim().equalsIgnoreCase(name.trim()))
                 .orElse(false);
     }
 
-    @Nullable
-    public User getUserByEmail(String email) {
+    public Optional<User> getUserByEmail(String email) {
         return userDatabaseRepository.findByEmail(email);
-    }
+        }
 
 }
