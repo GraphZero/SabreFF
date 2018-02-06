@@ -65,10 +65,11 @@ mvn clean install
 . Html
 . CSS
 . JS
+. Bootstrap
 . AngularJS
 
 == Backend
-. Java 9
+. Java 8
 . Spring Boot
 . Spring Security
 . Spring Data
@@ -76,8 +77,9 @@ mvn clean install
 . Apache Http Client
 . Apache Commons CSV
 . Junit 4
-. Testng
+. TestNg
 . Selenium
+. MS SQL 2016
 
 == Inne
 . Git
