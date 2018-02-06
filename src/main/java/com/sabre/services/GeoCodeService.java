@@ -27,7 +27,7 @@ import java.util.regex.Pattern;
 
 @Service
 public class GeoCodeService {
-    private final String token = "Bearer T1RLAQLGin7ZH3kVjtjGMyiTLzKYV0oJeBDoDUKXE+0ChKEh3Gq3atu6AADAWlztfJTAKn0up8PayxiYuHXZgCahQyOqo/NBwX2Q9FQfcJP8a5s3qSlwHgPEEjXfUBDmQ4YeRpFHMAvyRxv03Czg9waoW1qaFRIkyxo7zzaW1Hl3qppptHhUzGgFrghmQ3khvI9/8cpbbHJZ+/kUH8Ync9b1V3PoRmUvq5MjJ4ZaZ524ouw1FZAB4WEmcFVRxHdPUitnL9B0uZvNK5fl8+I9uShdwNGKKf7hi/Fgh4oetmmutadBNS654rraZOit";
+    private final String token = "Bearer T1RLAQKkpQk0IAj/jEJW4g2xC58ETeksNBCQ4HI+DbLHZ8terEW6Dlb7AADA4nNOKvcuBlrODo6otQag+SeWpPnhiqQ2krR7isAYfnmV8obd3hI9NzE64XpYbkL3ctYBWOFrVprq6HK3zfg7OM50Aasr9rIgOGR1BJLBfgoyJdUWTm+TzzIiegnzzK07h91TqqYSUH4Z43soCXXxxb7v9GV8Id0AFia0Y3itL6CDeEuMf0LBIGXPlw5N+hKpD5SaeqZiU9qUBNA3KVazQNznwUr2dJOr8IYY/Ras7A8YDvGPcJC2/fO7Qe/Z8VXH";
     private final String requestUrl = "https://api.test.sabre.com/v1/lists/utilities/geocode/locations";
     private static Logger logger = LogManager.getLogger(GeoCodeService.class);
 

@@ -67,6 +67,7 @@ public class UserServiceTest {
         long dbSize = dbSpringUserRepository.findAll().size();
         dbSpringUserRepository.save(new User("A", "B",
                 "C", 1, null, "D"));
+
         assertEquals(dbSize + 1, dbSpringUserRepository.findAll().size());
     }
 
@@ -79,36 +80,14 @@ public class UserServiceTest {
 
     @Test
     public void testSumOfUserFlights(){
-        assertEquals( (long) dbSpringUserRepository.findByEmail("noah.williams@travel-sabre.com").getFlightsMiles(), (long) 407946 );
+        dbSpringUserRepository.save(new User("A", "B",
+                "C", 100, null, "D"));
+        assertEquals( (long) dbSpringUserRepository
+                .findByEmail("C")
+                .get().getInitialMiles(),
+                100l );
     }
 
-    @Test
-    public void addMilesByCities() {
-    }
-
-    @Test
-    public void addMiles() {
-    }
-
-    @Test
-    public void getMissingMiles() {
-    }
-
-    @Test
-    public void deleteUser() {
-    }
-
-    @Test
-    public void isUserInDatabase() {
-    }
-
-    @Test
-    public void getAllUsers() {
-    }
-
-    @Test
-    public void getUserByEmail() {
-    }
 
 
 }

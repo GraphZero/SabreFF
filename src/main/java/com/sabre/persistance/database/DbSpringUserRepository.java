@@ -5,6 +5,7 @@ import com.sabre.persistance.UserDatabaseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class DbSpringUserRepository implements UserDatabaseRepository {
@@ -36,8 +37,8 @@ public class DbSpringUserRepository implements UserDatabaseRepository {
     }
 
     @Override
-    public User findByEmail(String email) {
-        return springUserRepository.findByEmail(email);
+    public Optional<User> findByEmail(String email) {
+        return Optional.ofNullable(springUserRepository.findByEmail(email));
     }
 
     @Override

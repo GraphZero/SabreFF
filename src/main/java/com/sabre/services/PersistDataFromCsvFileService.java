@@ -70,7 +70,7 @@ public class PersistDataFromCsvFileService {
                         Double.parseDouble(record.get("id"))));
                 logger.info("Persisting user " +  record.get("firstName"));
             } else{
-                User user = userService.getUserByEmail(record.get("email"));
+                User user = userService.getUserByEmail(record.get("email")).get();
                 user.setInitialMiles( user.getInitialMiles() + calculateDistancesBetweenAirportsService
                         .calculateDistance(record.get("airportDepartureCode"), record.get("airportArrivalCode")) );
             }

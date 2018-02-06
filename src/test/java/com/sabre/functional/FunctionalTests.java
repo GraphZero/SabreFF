@@ -6,40 +6,45 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.Test;
 
-import java.util.List;
 
 import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertTrue;
 
 
 public class FunctionalTests extends TestBase{
+    private static final String host = "http://localhost:8090/#!/";
+    private static final String testEmail = "noah.williams@travel-sabre.com";
+    private static final String testPassword = "Noah";
 
     @Test
     public void shouldLogin(){
         WebDriverWait wait = new WebDriverWait(driver, 5);
-        driver.get("http://localhost:8090/#!/");
+        driver.get(host);
         WebElement email = driver.findElement(By.name("email"));
         WebElement password = driver.findElement(By.name("password"));
         WebElement login = driver.findElement(By.name("login"));
-        email.sendKeys("noah.williams@travel-sabre.com");
-        password.sendKeys("Noah");
+        email.sendKeys(testEmail);
+        password.sendKeys(testPassword);
         login.click();
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("app-header")));
+        assertTrue(driver.getCurrentUrl().equals(host + "profilePage"));
     }
 
     @Test
     public void shouldAddCompleteFlight(){
         WebDriverWait wait = new WebDriverWait(driver, 5);
         // login
-        driver.get("http://localhost:8090/#!/");
+        driver.get(host);
         WebElement email1 = driver.findElement(By.name("email"));
         WebElement password1= driver.findElement(By.name("password"));
         WebElement login1 = driver.findElement(By.name("login"));
-        email1.sendKeys("noah.williams@travel-sabre.com");
-        password1.sendKeys("Noah");
+        email1.sendKeys(testEmail);
+        password1.sendKeys(testPassword);
         login1.click();
 
         // add flight
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("app-header")));
+        String url = driver.getCurrentUrl();
         WebElement addFlight = driver.findElement(By.id("addFlight"));
         addFlight.click();
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("add-flight-div")));
@@ -71,22 +76,22 @@ public class FunctionalTests extends TestBase{
 
         // check browser returns to profile page which means everything is successful
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("app-header")));
+        assertEquals( driver.getCurrentUrl(), url );
     }
 
     @Test
     public void shouldntAddCompleteFlight(){
         WebDriverWait wait = new WebDriverWait(driver, 5);
         // login
-        driver.get("http://localhost:8090/#!/");
+        driver.get(host);
         WebElement email1 = driver.findElement(By.name("email"));
         WebElement password1= driver.findElement(By.name("password"));
         WebElement login1 = driver.findElement(By.name("login"));
-        email1.sendKeys("noah.williams@travel-sabre.com");
-        password1.sendKeys("Noah");
+        email1.sendKeys(testEmail);
+        password1.sendKeys(testPassword);
         login1.click();
 
         // add flight
-
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("app-header")));
         WebElement addFlight = driver.findElement(By.id("addFlight"));
         addFlight.click();
@@ -127,16 +132,17 @@ public class FunctionalTests extends TestBase{
     public void shouldAddInCompleteFlight(){
         WebDriverWait wait = new WebDriverWait(driver, 5);
         // login
-        driver.get("http://localhost:8090/#!/");
+        driver.get(host);
         WebElement email1 = driver.findElement(By.name("email"));
         WebElement password1= driver.findElement(By.name("password"));
         WebElement login1 = driver.findElement(By.name("login"));
-        email1.sendKeys("noah.williams@travel-sabre.com");
-        password1.sendKeys("Noah");
+        email1.sendKeys(testEmail);
+        password1.sendKeys(testPassword);
         login1.click();
 
         // add flight
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("app-header")));
+        String url = driver.getCurrentUrl();
         WebElement addFlight = driver.findElement(By.id("addFlight"));
         addFlight.click();
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("add-flight-div")));
@@ -170,12 +176,13 @@ public class FunctionalTests extends TestBase{
 
         // check browser returns to profile page which means everything is successful
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("app-header")));
+        assertEquals( driver.getCurrentUrl(), url );
     }
 
     @Test
     public void shouldAddUser(){
         // login
-        driver.get("http://localhost:8090/#!/");
+        driver.get(host);
         String url = driver.getCurrentUrl();
         WebElement login1 = driver.findElement(By.name("login-as-admin"));
         login1.click();

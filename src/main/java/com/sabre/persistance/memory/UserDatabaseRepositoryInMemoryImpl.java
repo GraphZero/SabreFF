@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class UserDatabaseRepositoryInMemoryImpl implements UserDatabaseRepository {
@@ -59,10 +60,12 @@ public class UserDatabaseRepositoryInMemoryImpl implements UserDatabaseRepositor
 
     @Nullable
     @Override
-    public User findByEmail(String email) {
+    public Optional<User> findByEmail(String email) {
         for ( User u : users ){
-            if ( u.getEmail().equals(email) ) return u;
+            if ( u.getEmail().equals(email) ){
+                return Optional.of(u);
+            }
         }
-        return null;
+        return Optional.ofNullable(null);
     }
 }

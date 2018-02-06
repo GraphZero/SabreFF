@@ -38,7 +38,7 @@ public class UserController {
         HttpHeaders responseHeaders = new HttpHeaders();
         if ( userService.validateUser(email, name) ){
             logger.info("Successful login " + email);
-            return new ResponseEntity<>( userService.getUserByEmail(email), responseHeaders, HttpStatus.OK);
+            return new ResponseEntity<>( userService.getUserByEmail(email).get(), responseHeaders, HttpStatus.OK);
         } else{
             logger.info("Unsuccessful login " + email);
             return new ResponseEntity<>( null, responseHeaders, HttpStatus.FORBIDDEN);
@@ -48,12 +48,12 @@ public class UserController {
     @RequestMapping( path = "/getUser/{email:.+}")
     public ResponseEntity<User> getUserByEmail(@PathVariable("email") final String email){
         final HttpHeaders responseHeaders = new HttpHeaders();
-        final User user =  userService.getUserByEmail(email);
-        if ( user != null ){
-            return new ResponseEntity<>( user, responseHeaders, HttpStatus.OK);
-        } else{
-            return new ResponseEntity<>( user, responseHeaders, HttpStatus.FORBIDDEN);
-        }
+        return userService.getUserByEmail(email).map( x ->
+             new ResponseEntity<>( x, responseHeaders, HttpStatus.OK)
+        ).orElse(
+             new ResponseEntity<>( null, responseHeaders, HttpStatus.CONFLICT)
+        );
+
     }
 
     @RequestMapping( path = "/addUser", method = RequestMethod.POST)
