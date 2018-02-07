@@ -4,8 +4,8 @@ angular.module('home').controller('HomeController', function($scope, $http, $loc
                                                              FlightsService, DataService, LoginService){
 
     var nextLevel = 10000;
-
     $scope.nextLevel = nextLevel;
+
 
     var updateData = function() {
         if (  DataService.getUser() ){
@@ -43,14 +43,6 @@ angular.module('home').controller('HomeController', function($scope, $http, $loc
                 console.log("Couldn't login as: " + $scope.email + " " + $scope.password);
             }
         });
-    };
-
-    $scope.doShowFlights = function(){
-        if ( $scope.showFlights ){
-            $scope.showFlights = false;
-        } else{
-            $scope.showFlights = true;
-        }
     };
 
 

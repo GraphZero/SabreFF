@@ -120,5 +120,20 @@ public class User {
     public Long getFlightsMiles() {
         return flightsMiles;
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", initialMiles=" + initialMiles +
+                ", birthDate=" + birthDate +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", flightsMiles=" + flightsMiles +
+                '}';
+    }
 }
 
