@@ -53,14 +53,16 @@ public class GeoCodeService {
         try {
             input = new StringEntity(requestBody(airPortId.trim()));
         } catch (UnsupportedEncodingException e) {
-            logger.error("Couldnt parse request." + e.getMessage());
+            logger.error("Couldnt parse request. " + e.getMessage());
         }
         setRequestHeaders(request);
         request.setEntity(input);
         try {
-            return httpClient.execute(request);
+            HttpResponse response = httpClient.execute(request);
+            logger.info("Successful request to Sabre Api! " + airPortId);
+            return response;
         } catch (IOException e) {
-            logger.error("Couldnt get response from Sabre api." + e.getMessage());
+            logger.error("Couldnt get response from Sabre api. " + e.getMessage());
         }
         return null;
     }

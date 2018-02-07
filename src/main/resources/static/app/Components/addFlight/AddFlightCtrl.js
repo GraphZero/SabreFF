@@ -37,7 +37,7 @@ angular.module('home').controller('AddFlightCtrl', function($scope, $http, $loca
                 });
     };
 
-    function  postInCompleteFlight(){
+    function postInCompleteFlight(){
         var absUrl = "/postIncompleteFlight/" + DataService.getUser().email
             + "?airportDepartureCode=" + $scope.airportDepartureCode
             + "&airportArrivalCode=" + $scope.airportArrivalCode
@@ -46,14 +46,13 @@ angular.module('home').controller('AddFlightCtrl', function($scope, $http, $loca
             + "&returnTicket=" + $scope.returnTicket
             + "&departureFlightDate=" + $scope.departureFlightDate.getTime()
             + "&returnFlightDate=" + $scope.returnFlightDate.getTime();
-        console.log(absUrl);
         return $http.post( absUrl)
             .then(
                 function(){
                     DataService
                         .getUserData( DataService.getUser().email , $http)
                         .then(function successCallback() {
-                            console.log("Successfully posted flight.");
+                            console.log("Successfully posted incomplete flight.");
                             $location.path( '/profilePage' );
                         }, function errorCallback() {
                         });
@@ -68,7 +67,6 @@ angular.module('home').controller('AddFlightCtrl', function($scope, $http, $loca
         if ( $scope.miles ){
             postCompleteFlight();
         } else{
-            console.log("Incomplete");
             postInCompleteFlight();
         }
 

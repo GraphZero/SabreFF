@@ -59,7 +59,7 @@ public class FlightsService {
     }
 
     public List<Flight> getFlightsByUserEmail(String email) {
-        return flightsDatabaseRepository.findFlightByUserEmail(" " + email.trim());
+        return flightsDatabaseRepository.findFlightByUserEmail(email.trim());
     }
 
 }
