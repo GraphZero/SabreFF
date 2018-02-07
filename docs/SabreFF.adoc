@@ -59,6 +59,8 @@ By ściągnąć zależności przez _Mavena_ można użyć komendy.
 mvn clean install
 --
 
+By zalogować się należy stworzyć nowe konto w "panelu admina", login to email, a hasło to pole "first name" zalożonego konta.
+
 = *4. Użyte Technologie*
 
 == Frontend
